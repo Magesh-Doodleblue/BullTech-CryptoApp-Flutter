@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184135043973",
+    "project_id": "bulltech",
+    "storage_bucket": "bulltech.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184135043973:android:65aa3b4aafd9aa7a6792ec",
+        "android_client_info": {
+          "package_name": "com.example.bulltech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184135043973-dvt3el3muiuav8hf14uf3g9eud6tvc6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVz3dA9RcNgRycKhx6cMaAoYZ99tcGUQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184135043973-dvt3el3muiuav8hf14uf3g9eud6tvc6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
