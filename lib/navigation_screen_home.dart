@@ -31,6 +31,7 @@ class _NavigationButtonState extends State<NavigationButton> {
         onDestinationSelected: (int newIndex) {
           setState(() {
             pageIndex = newIndex;
+            print(pageIndex);
           });
         },
         destinations: const [

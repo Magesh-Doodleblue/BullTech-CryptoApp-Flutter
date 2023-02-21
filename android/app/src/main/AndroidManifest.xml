@@ -6,6 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
+<intent-filter>
+    <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+    <category android:name="android.intent.category.DEFAULT" /><!-- NEWLY ADDED FOR PUSH NOTIFICATION (Intent filter<>) -->
+</intent-filter>
+<!-- NEWLY ADDED FOR PUSH NOTIFICATION (android:name=".Application" ) --> 
    <application
         android:label="Bull Currency"
         android:name="${applicationName}"

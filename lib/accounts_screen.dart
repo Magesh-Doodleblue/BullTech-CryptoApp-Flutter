@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unused_field
 
 import 'dart:io';
 
@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -23,23 +24,49 @@ class _AccountPageState extends State<AccountPage> {
   TextEditingController controller4 = TextEditingController();
 
   PlatformFile? pickedFile;
+//for notification
+
+  String messageTitle = "Empty";
+  String notificationAlert = "alert";
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   // final CollectionReference filesRef =
   //     FirebaseFirestore.instance.collection('files');
-
   // Future<void> addFileToFirestore() async {
   //   final CollectionReference filesRef =
   //       FirebaseFirestore.instance.collection('users');
-
   //   final File file = File('assets/sample_file.json' as List<Object>);
-
   //   final Uint8List bytes = await file.readAsBytes();
-
   //   await filesRef.add({
   //     'name': 'myFile.jpg',
   //     'bytes': bytes,
   //     'timestamp': FieldValue.serverTimestamp(),
   //   });
   // }
+
+// @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+
+//     _firebaseMessaging.configure(
+//       onMessage: (message) async{
+//         setState(() {
+//           messageTitle = message["notification"]["title"];
+//           notificationAlert = "New Notification Alert";
+//         });
+
+//       },
+//       onResume: (message) async{
+//         setState(() {
+//           messageTitle = message["data"]["title"];
+//           notificationAlert = "Application opened from Notification";
+//         });
+
+//       },
+//     );
+//   }
 
   Future uploadfile() async {
     final path = 'users/${pickedFile!.name}';
@@ -133,6 +160,8 @@ class _AccountPageState extends State<AccountPage> {
               },
               child: const Text("Upload file"),
             ),
+            Text(notificationAlert),
+            Text(messageTitle),
             ElevatedButton(
               onPressed: () async {
                 Position position = await _determinePosition();
