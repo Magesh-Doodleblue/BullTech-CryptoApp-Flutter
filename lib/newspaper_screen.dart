@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'news_details_screen.dart';
@@ -52,7 +53,9 @@ class _NewsScreenState extends State<NewsScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        print('REDIRECTING');
+                        if (kDebugMode) {
+                          print('REDIRECTING');
+                        }
                         Navigator.push(
                             context,
                             MaterialPageRoute(

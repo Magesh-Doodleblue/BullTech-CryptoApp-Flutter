@@ -26,6 +26,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.dark,
         textTheme: GoogleFonts.adventProTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -49,6 +50,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                     'WELCOME',
                     style: TextStyle(
                       fontSize: 30,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -148,6 +150,20 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                   MaterialButton(
                     onPressed: () {},
                     child: const Icon(Icons.mail),
+                  ),
+                  IconButton(
+                    icon: Image.asset(
+                      'assets/google.jpg',
+                      width: 45,
+                      height: 45,
+                    ),
+                    onPressed: () {
+                      _googleSignIn.signIn().then((userData) {
+                        print(userData);
+                      }).catchError((e) {
+                        debugPrint(e);
+                      });
+                    },
                   ),
                   ElevatedButton(
                     onPressed: () {

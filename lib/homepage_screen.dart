@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.dark,
         textTheme: GoogleFonts.syneTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -76,13 +77,13 @@ class _HomePageState extends State<HomePage> {
           return false;
         },
         child: Scaffold(
-          backgroundColor: Colors.grey[300],
+          // backgroundColor: Colors.grey[300],
           appBar: AppBar(
-            backgroundColor: Colors.grey[300],
-            title: Text(
+            // backgroundColor: Colors.grey[300],
+            title: const Text(
               ' BULL CURRENCY',
               style: TextStyle(
-                color: Colors.grey[900],
+                // color: Colors.grey[900],
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
               ),

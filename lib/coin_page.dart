@@ -24,17 +24,17 @@ class CoinPage extends StatelessWidget {
       child: Container(
         height: 170,
         decoration: BoxDecoration(
-          color: Colors.white,
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
-              color: Colors.grey,
+              // color: Colors.grey,
               offset: Offset(4, 4),
               blurRadius: 10,
               spreadRadius: 1,
             ),
             BoxShadow(
-              color: Colors.white,
+              // color: Colors.white,
               offset: Offset(-4, -4),
               blurRadius: 10,
               spreadRadius: 1,
@@ -47,17 +47,17 @@ class CoinPage extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  // color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(
-                      color: Colors.grey,
+                      // color: Colors.grey,
                       offset: Offset(4, 4),
                       blurRadius: 10,
                       spreadRadius: 1,
                     ),
                     BoxShadow(
-                      color: Colors.white,
+                      // color: Colors.white,
                       offset: Offset(-4, -4),
                       blurRadius: 10,
                       spreadRadius: 1,
@@ -81,8 +81,8 @@ class CoinPage extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       name,
-                      style: TextStyle(
-                        color: Colors.grey[900],
+                      style: const TextStyle(
+                        color: Colors.white,
                         fontSize: 23,
                         fontWeight: FontWeight.bold,
                       ),
@@ -90,8 +90,8 @@ class CoinPage extends StatelessWidget {
                   ),
                   Text(
                     symbol,
-                    style: TextStyle(
-                      color: Colors.grey[900],
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 18,
                     ),
                   ),
@@ -106,8 +106,8 @@ class CoinPage extends StatelessWidget {
                 children: [
                   Text(
                     price.toDouble().toString(),
-                    style: TextStyle(
-                      color: Colors.grey[900],
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
