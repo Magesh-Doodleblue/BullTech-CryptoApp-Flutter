@@ -47,6 +47,7 @@ class _AccountPageState extends State<AccountPage> {
 
 // @override
 //   void initState() {
+// ignore: todo
 //     // TODO: implement initState
 //     super.initState();
 

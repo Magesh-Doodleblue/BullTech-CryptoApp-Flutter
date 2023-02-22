@@ -38,14 +38,17 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        body: Center(
-          child: Padding(
+        body: ListView(children: [
+          Padding(
             padding: const EdgeInsets.all(18.0),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(
+                    height: 100,
+                  ),
                   const Text(
                     'WELCOME',
                     style: TextStyle(
@@ -113,7 +116,10 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Didnt have an account! '),
+                      const Text(
+                        'Didnt have an account! ',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       TextButton(
                           onPressed: () {
                             debugPrint('Signup button clicked');
@@ -125,61 +131,69 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        debugPrint('Login button clicked');
-                        signin(context, userNameController.text,
-                            passwordController.text, userNameController.text);
-                      }
-                    },
-                    color: Colors.black,
-                    child: const SizedBox(
-                      width: 100,
-                      child: Center(
-                        child: Text(
-                          'Login',
-                          style: TextStyle(fontSize: 24, color: Colors.white),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MaterialButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            debugPrint('Login button clicked');
+                            signin(
+                                context,
+                                userNameController.text,
+                                passwordController.text,
+                                userNameController.text);
+                          }
+                        },
+                        color: Colors.black,
+                        child: const SizedBox(
+                          width: 100,
+                          child: Center(
+                            child: Text(
+                              'Login',
+                              style:
+                                  TextStyle(fontSize: 24, color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MaterialButton(
-                    onPressed: () {},
-                    child: const Icon(Icons.mail),
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/google.jpg',
-                      width: 45,
-                      height: 45,
-                    ),
-                    onPressed: () {
-                      _googleSignIn.signIn().then((userData) {
-                        print(userData);
-                      }).catchError((e) {
-                        debugPrint(e);
-                      });
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AccountPage(),
-                          ));
-                    },
-                    child: const Icon(Icons.abc),
+                      const SizedBox(width: 10),
+                      const SizedBox(
+                          width: 2,
+                          height: 33,
+                          child: Divider(thickness: 32, color: Colors.white)),
+                      IconButton(
+                        icon: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image.asset(
+                            'assets/google.jpg',
+                            width: 35,
+                            height: 35,
+                          ),
+                        ),
+                        onPressed: () {
+                          _googleSignIn.signIn().then((userData) {
+                            print(userData);
+                          }).catchError((e) {
+                            debugPrint(e);
+                          });
+                        },
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const ()));
+                          },
+                          child: const Text("SSSSSSSSSSSS"))
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-        ),
+        ]),
       ),
     );
   }

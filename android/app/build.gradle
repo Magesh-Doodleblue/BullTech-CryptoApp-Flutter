@@ -46,6 +46,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.bulltech"
+        manifestPlaceholders = [    'appPackageName': applicationId,    'firebaseMessagingVersion': '22.0.0']
+
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 27//flutter.minSdkVersion
@@ -72,6 +74,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation platform('com.google.firebase:firebase-bom:29.0.1')
+    implementation 'com.google.firebase:firebase-messaging'
+
 }
 
 dependencies {
