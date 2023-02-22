@@ -63,6 +63,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     controller: userNameController,
+                    style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Enter Username';
@@ -87,6 +88,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     controller: passwordController,
+                    style: const TextStyle(color: Colors.white),
                     obscureText: true,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -179,14 +181,14 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                           });
                         },
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const ()));
-                          },
-                          child: const Text("SSSSSSSSSSSS"))
+                      // ElevatedButton(
+                      //     onPressed: () {
+                      //       // Navigator.push(
+                      //       //     context,
+                      //       //     MaterialPageRoute(
+                      //       //         builder: (context) => const ()));
+                      //     },
+                      //     // child: const Text("SSSSSSSSSSSS"))
                     ],
                   ),
                 ],
