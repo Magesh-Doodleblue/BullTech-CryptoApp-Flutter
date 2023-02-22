@@ -67,38 +67,38 @@ class _HomePageState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        textTheme: GoogleFonts.plusJakartaSansTextTheme(
+        textTheme: GoogleFonts.syneTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
       home: WillPopScope(
         onWillPop: () async {
-          if (currentBackPressTime == null ||
-              DateTime.now().difference(currentBackPressTime!) >
-                  const Duration(seconds: 2)) {
-            // Show a toast to inform the user to press again to exit
-            currentBackPressTime = DateTime.now();
-            Fluttertoast.showToast(
-              msg: "Press back again to exit",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-            );
-            return false;
-          }
-          return true;
+          return false;
         },
         child: Scaffold(
           backgroundColor: Colors.grey[300],
           appBar: AppBar(
             backgroundColor: Colors.grey[300],
             title: Text(
-              ' BULL TECH',
+              ' BULL CURRENCY',
               style: TextStyle(
                 color: Colors.grey[900],
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            actions: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const Text("Logout"),
+                GestureDetector(
+                  child: const Icon(Icons.logout),
+                  onTap: () {},
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+              ]),
+            ],
           ),
           body: RefreshIndicator(
             onRefresh: _refreshData,

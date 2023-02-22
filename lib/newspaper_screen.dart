@@ -33,71 +33,75 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BULL NEWS'),
-      ),
-      body: _newsList.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: _newsList.length,
-              itemBuilder: (context, index) {
-                final newsData = _newsList[index] as Map<String, dynamic>;
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      print('REDIRECTING');
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NewsDetailsScreen(news: _newsList[index]),
-                          ));
-                    },
-                    child: Card(
-                      elevation: 3,
-                      child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          leading: Image.network(
-                            newsData['imageURL'],
-                            width: 60,
-                          ),
-                          //  CachedNetworkImage(
-                          //   imageUrl: newsData['imageURL'],
-                          //   placeholder: (context, url) => const Icon(Icons.error),
-                          //   errorWidget: (context, url, error) => Icon(Icons.error),
-                          // ),
-                          title: Padding(
-                            padding: const EdgeInsets.only(top: 6),
-                            child: Text(
-                              newsData['heading'],
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('NEWS SECTION'),
+        ),
+        body: _newsList.isEmpty
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: _newsList.length,
+                itemBuilder: (context, index) {
+                  final newsData = _newsList[index] as Map<String, dynamic>;
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        print('REDIRECTING');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NewsDetailsScreen(news: _newsList[index]),
+                            ));
+                      },
+                      child: Card(
+                        elevation: 3,
+                        child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            leading: Image.network(
+                              newsData['imageURL'],
+                              width: 60,
+                            ),
+                            //  CachedNetworkImage(
+                            //   imageUrl: newsData['imageURL'],
+                            //   placeholder: (context, url) => const Icon(Icons.error),
+                            //   errorWidget: (context, url, error) => Icon(Icons.error),
+                            // ),
+                            title: Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text(
+                                newsData['heading'],
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          subtitle: Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 8),
-                            child: Text(
-                              newsData['source'],
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 6, bottom: 8),
+                              child: Text(
+                                newsData['source'],
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              ),
+      ),
     );
   }
 }

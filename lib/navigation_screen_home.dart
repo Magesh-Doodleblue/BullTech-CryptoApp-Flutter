@@ -13,15 +13,15 @@ class NavigationButton extends StatefulWidget {
 
 class _NavigationButtonState extends State<NavigationButton> {
   @override
+  int pageIndex = 0;
+  List<Widget> bodybar = [
+    const HomePage(),
+    const WishListScreen(),
+    const NewsScreen(),
+    const AccountPage(),
+  ];
+  @override
   Widget build(BuildContext context) {
-    int pageIndex = 0;
-    List<Widget> bodybar = [
-      const HomePage(),
-      const WishListScreen(),
-      const NewsScreen(),
-      const AccountPage(),
-    ];
-
     return Scaffold(
       body: Center(
         child: bodybar[pageIndex],
@@ -31,7 +31,7 @@ class _NavigationButtonState extends State<NavigationButton> {
         onDestinationSelected: (int newIndex) {
           setState(() {
             pageIndex = newIndex;
-            print(pageIndex);
+            // debugPrint(pageIndex as String?);
           });
         },
         destinations: const [

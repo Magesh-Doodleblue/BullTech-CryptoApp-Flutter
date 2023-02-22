@@ -112,81 +112,85 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('My Account')),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            // Image.file(
-            //   File(pickedFile?.path),
-            //   width: 200,
-            //   height: 300,
-            //   fit: BoxFit.cover,
-            // ),
-            TextFormField(
-              controller: controller1,
-              decoration: const InputDecoration(hintText: "ID"),
-            ),
-            TextFormField(
-              controller: controller2,
-              decoration: const InputDecoration(hintText: "name"),
-            ),
-            TextFormField(
-              controller: controller3,
-              decoration: const InputDecoration(hintText: "type"),
-            ),
-            TextFormField(
-              controller: controller4,
-              decoration: const InputDecoration(hintText: "rating"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                selectfile();
-              },
-              child: const Text("Select file"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                uploadfile();
-                Fluttertoast.showToast(
-                    msg: "File successfully added",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.grey[600],
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              },
-              child: const Text("Upload file"),
-            ),
-            Text(notificationAlert),
-            Text(messageTitle),
-            ElevatedButton(
-              onPressed: () async {
-                Position position = await _determinePosition();
-                debugPrint(
-                    " Latitude value of user is ${position.latitude.toString()}");
-                debugPrint(
-                    " Longitude value of user is ${position.longitude.toString()}");
-                debugPrint(
-                    " Time value of user is ${position.timestamp.toString()}");
-                debugPrint(
-                    " Altitude value of user is ${position.altitude.toString()}");
-              },
-              child: const Text("GET LOCATION"),
-            ),
-            IconButton(
-              onPressed: () {
-                final id = controller1.text;
-                final name = controller2.text;
-                final type = controller3.text;
-                final rating = controller4.text;
-                updateUser(id: id, name: name, type: type, rating: rating);
-              },
-              icon: const Icon(Icons.add),
-            )
-          ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(useMaterial3: true),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('My Account')),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              // Image.file(
+              //   File(pickedFile?.path),
+              //   width: 200,
+              //   height: 300,
+              //   fit: BoxFit.cover,
+              // ),
+              TextFormField(
+                controller: controller1,
+                decoration: const InputDecoration(hintText: "ID"),
+              ),
+              TextFormField(
+                controller: controller2,
+                decoration: const InputDecoration(hintText: "name"),
+              ),
+              TextFormField(
+                controller: controller3,
+                decoration: const InputDecoration(hintText: "type"),
+              ),
+              TextFormField(
+                controller: controller4,
+                decoration: const InputDecoration(hintText: "rating"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  selectfile();
+                },
+                child: const Text("Select file"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  uploadfile();
+                  Fluttertoast.showToast(
+                      msg: "File successfully added",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.grey[600],
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                },
+                child: const Text("Upload file"),
+              ),
+              Text(notificationAlert),
+              Text(messageTitle),
+              ElevatedButton(
+                onPressed: () async {
+                  Position position = await _determinePosition();
+                  debugPrint(
+                      " Latitude value of user is ${position.latitude.toString()}");
+                  debugPrint(
+                      " Longitude value of user is ${position.longitude.toString()}");
+                  debugPrint(
+                      " Time value of user is ${position.timestamp.toString()}");
+                  debugPrint(
+                      " Altitude value of user is ${position.altitude.toString()}");
+                },
+                child: const Text("GET LOCATION"),
+              ),
+              IconButton(
+                onPressed: () {
+                  final id = controller1.text;
+                  final name = controller2.text;
+                  final type = controller3.text;
+                  final rating = controller4.text;
+                  updateUser(id: id, name: name, type: type, rating: rating);
+                },
+                icon: const Icon(Icons.add),
+              )
+            ],
+          ),
         ),
       ),
     );

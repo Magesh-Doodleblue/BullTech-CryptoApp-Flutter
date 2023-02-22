@@ -1,14 +1,11 @@
 // ignore_for_file: unrelated_type_equality_checks
 
-import "package:bulltech/main.dart";
 import "package:flutter/material.dart";
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'accounts_screen.dart';
-import "signup_screen.dart";
 
 class LoginScreenPage extends StatefulWidget {
   const LoginScreenPage({Key? key}) : super(key: key);
@@ -26,6 +23,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         textTheme: GoogleFonts.adventProTextTheme(
