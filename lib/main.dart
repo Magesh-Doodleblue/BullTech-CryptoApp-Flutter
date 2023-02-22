@@ -2,6 +2,8 @@
 import 'package:bulltech/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'coin_details.dart';
+import 'homepage_screen.dart';
 import 'login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'navigation_screen_home.dart';
@@ -37,6 +39,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "/navigationbutton": (context) => const NavigationButton(),
         "/signup": (context) => const SignupScreen(),
+        "/homepage": (context) => const HomePage(),
       },
       home: Scaffold(
         body: FutureBuilder(

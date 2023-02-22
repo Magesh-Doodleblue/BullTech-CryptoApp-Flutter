@@ -152,14 +152,15 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                     child: const Icon(Icons.mail),
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AccountPage(),
-                            ));
-                      },
-                      child: const Icon(Icons.abc))
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AccountPage(),
+                          ));
+                    },
+                    child: const Icon(Icons.abc),
+                  ),
                 ],
               ),
             ),
