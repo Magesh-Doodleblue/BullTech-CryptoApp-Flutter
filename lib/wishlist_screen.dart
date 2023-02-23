@@ -27,51 +27,46 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Wishlist'),
-        ),
-        body: GridView.builder(
-          itemCount: _coins.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            final coin = _coins[index];
-            return Card(
-              child: Center(
-                child: Text(
-                  coin,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Wishlist.instance.clearCoins();
-            setState(() {
-              _coins = Wishlist.instance.getCoins();
-            });
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // remove back button
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Wishlist cleared'),
-              ),
-            );
-          },
-          tooltip: 'Clear wishlist',
-          child: const Icon(Icons.clear),
+        title: const Text('Wishlist'),
+      ),
+      body: GridView.builder(
+        itemCount: _coins.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
+        itemBuilder: (BuildContext context, int index) {
+          final coin = _coins[index];
+          return Card(
+            child: Center(
+              child: Text(
+                coin,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Wishlist.instance.clearCoins();
+          setState(() {
+            _coins = Wishlist.instance.getCoins();
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Wishlist cleared'),
+            ),
+          );
+        },
+        tooltip: 'Clear wishlist',
+        child: const Icon(Icons.clear),
       ),
     );
   }

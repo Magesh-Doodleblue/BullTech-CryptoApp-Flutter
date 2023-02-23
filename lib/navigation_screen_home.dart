@@ -38,7 +38,7 @@ class _NavigationButtonState extends State<NavigationButton> {
           NavigationDestination(
             selectedIcon: Icon(
               Icons.home,
-              color: Colors.black,
+              color: Colors.white,
             ),
             icon: Icon(
               Icons.home,
@@ -48,8 +48,9 @@ class _NavigationButtonState extends State<NavigationButton> {
           ),
           NavigationDestination(
             selectedIcon: Icon(
-              Icons.abc,
-              color: Colors.black,
+              Icons.abc_outlined,
+              // Image.asset("assets/wishlist.png"),
+              color: Colors.white,
             ),
             icon: Icon(
               Icons.data_exploration,
@@ -60,7 +61,7 @@ class _NavigationButtonState extends State<NavigationButton> {
           NavigationDestination(
             selectedIcon: Icon(
               Icons.newspaper,
-              color: Colors.black,
+              color: Colors.white,
             ),
             icon: Icon(
               Icons.newspaper,
@@ -71,7 +72,7 @@ class _NavigationButtonState extends State<NavigationButton> {
           NavigationDestination(
             selectedIcon: Icon(
               Icons.person,
-              color: Colors.black,
+              color: Colors.white,
             ),
             icon: Icon(
               Icons.person,

@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart';
 import 'news_details_screen.dart';
-import 'package:xml/xml.dart' as xml;
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -33,37 +33,60 @@ class _NewsScreenState extends State<NewsScreen> {
   //     throw Exception('Failed to fetch news');
   //   }
   // }
-
   Future<void> _loadNews() async {
     final response = await http.get(Uri.parse('https://cointelegraph.com/rss'));
     if (response.statusCode == 200) {
-      final data = xml.XmlDocument.parse(response.body);
-      final items = data.findAllElements('item').map((node) {
-        return {
-          'title': node.findElements('title').single.text,
-          'description': node.findElements('description').single.text,
-          'pubDate': node.findElements('pubDate').single.text,
-          'link': node.findElements('link').single.text,
+      final document = XmlDocument.parse(response.body);
+      final items = document.findAllElements('item');
+
+      List<Map<String, dynamic>> newsList = [];
+
+      for (var item in items) {
+        final title = item.findElements('title').single.text;
+        final link = item.findElements('link').single.text;
+        final pubDate = item.findElements('pubDate').single.text;
+        final descriptionWithTags =
+            item.findElements('description').single.text;
+        final imageUrl =
+            item.findElements('media:content').single.getAttribute('url');
+        final regex = RegExp('<p>(.*?)</p>');
+        final description =
+            regex.firstMatch(descriptionWithTags)?.group(1) ?? '';
+
+        final newsItem = {
+          'title': title,
+          'link': link,
+          'pubDate': pubDate,
+          'description': description,
+          'imageUrl': imageUrl,
         };
-      }).toList();
+
+        newsList.add(newsItem);
+      }
+
       setState(() {
-        _newsList = items;
+        _newsList = newsList;
       });
     } else {
       throw Exception('Failed to fetch news');
     }
   }
 
+  Future<void> _refreshNewsList() async {
+    await _loadNews();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('NEWS SECTION'),
-        ),
-        body: _newsList.isEmpty
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false, 
+
+        title: const Text('NEWS SECTION'),
+      ),
+      body: RefreshIndicator(
+        onRefresh: _refreshNewsList,
+        child: _newsList.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -89,36 +112,47 @@ class _NewsScreenState extends State<NewsScreen> {
                         elevation: 3,
                         child: Container(
                           color: Colors.black87,
-                          child: ListTile(
-                            leading: Image.network(
-                              newsData['imageURL'],
-                              width: 60,
-                            ),
-                            //  CachedNetworkImage(
-                            //   imageUrl: newsData['imageURL'],
-                            //   placeholder: (context, url) => const Icon(Icons.error),
-                            //   errorWidget: (context, url, error) => Icon(Icons.error),
-                            // ),
-                            title: Padding(
-                              padding: const EdgeInsets.only(top: 6),
-                              child: Text(
-                                newsData['heading'],
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(
+                                newsData['imageUrl'],
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  newsData['title'],
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                            subtitle: Padding(
-                              padding: const EdgeInsets.only(top: 6, bottom: 8),
-                              child: Text(
-                                newsData['source'],
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  newsData['pubDate'],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  newsData['description'],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

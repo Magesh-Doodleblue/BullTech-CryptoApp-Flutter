@@ -63,90 +63,82 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        textTheme: GoogleFonts.syneTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      home: WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        // backgroundColor: Colors.grey[300],
+        appBar: AppBar(
+          automaticallyImplyLeading: false, // remove back button
+
           // backgroundColor: Colors.grey[300],
-          appBar: AppBar(
-            // backgroundColor: Colors.grey[300],
-            title: const Text(
-              ' BULL CURRENCY',
-              style: TextStyle(
-                // color: Colors.grey[900],
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-              ),
+          title: const Text(
+            ' BULL CURRENCY',
+            style: TextStyle(
+              // color: Colors.grey[900],
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
             ),
-            actions: [
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                const Text("Logout"),
-                GestureDetector(
-                  child: const Icon(Icons.logout),
-                  onTap: () {},
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-              ]),
-            ],
           ),
-          body: RefreshIndicator(
-            onRefresh: _refreshData,
-            child: isLoading
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text("Please wait..."),
-                      ],
-                    ),
-                  )
-                : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: coinList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CoinDetailsPage(
-                                name: coinList[index].name,
-                                symbol: coinList[index].symbol,
-                                imageUrl: coinList[index].imageUrl,
-                                price: coinList[index].price.toDouble(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: CoinPage(
-                          name: coinList[index].name,
-                          symbol: coinList[index].symbol,
-                          imageUrl: coinList[index].imageUrl,
-                          price: coinList[index].price.toDouble(),
-                          change: coinList[index].change.toDouble(),
-                          changePercentage:
-                              coinList[index].changePercentage.toDouble(),
-                        ),
-                      );
-                    },
+          actions: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              const Text("Logout"),
+              GestureDetector(
+                child: const Icon(Icons.logout),
+                onTap: () {},
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+            ]),
+          ],
+        ),
+        body: RefreshIndicator(
+          onRefresh: _refreshData,
+          child: isLoading
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text("Please wait..."),
+                    ],
                   ),
-          ),
+                )
+              : ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: coinList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CoinDetailsPage(
+                              name: coinList[index].name,
+                              symbol: coinList[index].symbol,
+                              imageUrl: coinList[index].imageUrl,
+                              price: coinList[index].price.toDouble(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: CoinPage(
+                        name: coinList[index].name,
+                        symbol: coinList[index].symbol,
+                        imageUrl: coinList[index].imageUrl,
+                        price: coinList[index].price.toDouble(),
+                        change: coinList[index].change.toDouble(),
+                        changePercentage:
+                            coinList[index].changePercentage.toDouble(),
+                      ),
+                    );
+                  },
+                ),
         ),
       ),
     );

@@ -2,6 +2,7 @@
 import 'package:bulltech/signup_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'homepage_screen.dart';
 import 'login_screen.dart';
@@ -37,6 +38,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        // textTheme: GoogleFonts.adventProTextTheme(
+        //   Theme.of(context).textTheme,
+        // ),
+      ),
       initialRoute: "/",
       routes: {
         "/navigationbutton": (context) => const NavigationButton(),
