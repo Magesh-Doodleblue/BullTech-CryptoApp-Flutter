@@ -115,7 +115,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       home: Scaffold(
         appBar: AppBar(title: const Text('My Account')),
         body: Padding(

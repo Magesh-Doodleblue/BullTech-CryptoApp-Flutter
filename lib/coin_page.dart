@@ -22,19 +22,19 @@ class CoinPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
       child: Container(
-        height: 170,
+        height: 110,
         decoration: BoxDecoration(
           // color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
-              // color: Colors.grey,
+              color: Colors.transparent,
               offset: Offset(4, 4),
               blurRadius: 10,
               spreadRadius: 1,
             ),
             BoxShadow(
-              // color: Colors.white,
+              color: Colors.transparent,
               offset: Offset(-4, -4),
               blurRadius: 10,
               spreadRadius: 1,
@@ -47,11 +47,10 @@ class CoinPage extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Container(
                 decoration: BoxDecoration(
-                  // color: Colors.grey[300],
+                  color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(
-                      // color: Colors.grey,
                       offset: Offset(4, 4),
                       blurRadius: 10,
                       spreadRadius: 1,

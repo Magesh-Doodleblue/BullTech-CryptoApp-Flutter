@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'news_details_screen.dart';
+import 'package:xml/xml.dart' as xml;
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -20,12 +21,33 @@ class _NewsScreenState extends State<NewsScreen> {
     _loadNews();
   }
 
+/////////////////// OLD LAGGING NEWS API
+  // Future<void> _loadNews() async {
+  //   final response = await http.get(Uri.parse('https://n59der.deta.dev/'));
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     setState(() {
+  //       _newsList = data['newsItems'];
+  //     });
+  //   } else {
+  //     throw Exception('Failed to fetch news');
+  //   }
+  // }
+
   Future<void> _loadNews() async {
-    final response = await http.get(Uri.parse('https://n59der.deta.dev/'));
+    final response = await http.get(Uri.parse('https://cointelegraph.com/rss'));
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = xml.XmlDocument.parse(response.body);
+      final items = data.findAllElements('item').map((node) {
+        return {
+          'title': node.findElements('title').single.text,
+          'description': node.findElements('description').single.text,
+          'pubDate': node.findElements('pubDate').single.text,
+          'link': node.findElements('link').single.text,
+        };
+      }).toList();
       setState(() {
-        _newsList = data['newsItems'];
+        _newsList = items;
       });
     } else {
       throw Exception('Failed to fetch news');
@@ -35,7 +57,7 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -66,7 +88,7 @@ class _NewsScreenState extends State<NewsScreen> {
                       child: Card(
                         elevation: 3,
                         child: Container(
-                          color: Colors.white,
+                          color: Colors.black87,
                           child: ListTile(
                             leading: Image.network(
                               newsData['imageURL'],
