@@ -22,6 +22,26 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   DateTime? currentBackPressTime;
 
+  int _backButtonCounter = 0; //for backbutton
+
+  Future<bool> _onWillPop() async {
+    _backButtonCounter++;
+    if (_backButtonCounter == 3) {
+      return true;
+    }
+    Fluttertoast.showToast(
+      msg: 'Press back again to exit',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.grey[600],
+      textColor: Colors.white,
+    );
+    await Future.delayed(const Duration(seconds: 2));
+    _backButtonCounter--;
+    return false;
+  }
+
   Future<List<Coin>> fetchCoin() async {
     final response = await http.get(
       Uri.parse(
@@ -64,9 +84,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
+      onWillPop: _onWillPop,
       child: Scaffold(
         // backgroundColor: Colors.grey[300],
         appBar: AppBar(

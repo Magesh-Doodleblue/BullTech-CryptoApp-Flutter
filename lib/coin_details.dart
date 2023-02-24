@@ -51,7 +51,7 @@ class CoinDetailsPage extends StatelessWidget {
                   SizedBox(
                       width: 300,
                       height: 300,
-                      child: PriceHistoryChart(
+                      child: CryptoChart(
                           coinName: symbol)), //chart section in another page
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -80,8 +80,7 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, 
-
+        automaticallyImplyLeading: false,
         title: const Text('NEWS SECTION'),
       ),
       body: RefreshIndicator(
@@ -105,7 +104,7 @@ class _NewsScreenState extends State<NewsScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  NewsDetailsScreen(news: _newsList[index]),
+                                  NewsDetailsScreen(news: newsData),
                             ));
                       },
                       child: Card(

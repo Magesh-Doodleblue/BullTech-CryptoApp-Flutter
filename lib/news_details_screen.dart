@@ -11,7 +11,7 @@ class NewsDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(news['heading']),
+        title: Text(news['title']),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -31,15 +31,15 @@ class NewsDetailsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    news['heading'],
+                    news['pubDate'],
                     style: const TextStyle(
                         fontSize: 25.0, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 18.0),
-                  Text(
-                    'By ${news['source']}',
-                    style: const TextStyle(fontSize: 18.0),
-                  ),
+                  // Text(
+                  //   'By ${news['source']}',
+                  //   style: const TextStyle(fontSize: 18.0),
+                  // ),
                   const SizedBox(height: 26.0),
                   Text(
                     news['description'],

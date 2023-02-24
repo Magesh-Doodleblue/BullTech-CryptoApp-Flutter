@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'homepage_screen.dart';
-import 'login_screen.dart';
+import 'opening_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'navigation_screen_home.dart';
 
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
           future: _initializeFirebase(),
           builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return const LoginScreenPage();
+              return const Splash();
             }
             return const Center(child: CircularProgressIndicator());
           },

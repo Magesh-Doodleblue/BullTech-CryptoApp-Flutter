@@ -125,6 +125,9 @@ class _AccountPageState extends State<AccountPage> {
             //   width: 200,
             //   height: 300,
             //   fit: BoxFit.cover,
+            // // ),
+            // CircleAvatar(
+            //   child: Image.file(),
             // ),
             TextFormField(
               controller: controller1,
