@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'opening_splash_screen.dart';
+import 'screens/opening_splash_screen.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -39,11 +39,10 @@ class _LoadingPageState extends State<LoadingPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(''),
                 const Text(
                   'BULL CRYPTO',
                   style: TextStyle(
-                      fontSize: 60,
+                      fontSize: 40,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
@@ -63,11 +62,6 @@ class _LoadingPageState extends State<LoadingPage> {
                         SizedBox(
                           width: myWidth * 0.02,
                         ),
-                        Image.asset(
-                          'assets/BullTech.png',
-                          height: myHeight * 0.03,
-                          color: Colors.black,
-                        )
                       ],
                     ),
                     SizedBox(

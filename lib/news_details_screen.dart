@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'newspaper_screen.dart';
-
 class NewsDetailsScreen extends StatelessWidget {
   final dynamic news;
 
@@ -11,11 +9,15 @@ class NewsDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(news['title']),
+        title: const Text("Details Page"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Text(news['title']),
             const SizedBox(
               height: 20,
             ),
@@ -33,13 +35,8 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     news['pubDate'],
                     style: const TextStyle(
-                        fontSize: 25.0, fontWeight: FontWeight.bold),
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 18.0),
-                  // Text(
-                  //   'By ${news['source']}',
-                  //   style: const TextStyle(fontSize: 18.0),
-                  // ),
                   const SizedBox(height: 26.0),
                   Text(
                     news['description'],
