@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'coin_details.dart';
-import 'coin_page.dart';
-import 'models/coin_model.dart';
+
+import '../coin_details.dart';
+import '../coin_page.dart';
+import '../models/coin_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,6 +22,26 @@ class _HomePageState extends State<HomePage> {
   late List<Coin> coinList = [];
   bool isLoading = false;
   DateTime? currentBackPressTime;
+
+  int _backButtonCounter = 0; //for backbutton
+
+  Future<bool> _onWillPop() async {
+    _backButtonCounter++;
+    if (_backButtonCounter == 3) {
+      return true;
+    }
+    Fluttertoast.showToast(
+      msg: 'Press back again to exit',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.grey[600],
+      textColor: Colors.white,
+    );
+    await Future.delayed(const Duration(seconds: 2));
+    _backButtonCounter--;
+    return false;
+  }
 
   Future<List<Coin>> fetchCoin() async {
     final response = await http.get(
@@ -64,9 +85,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
+      onWillPop: _onWillPop,
       child: Scaffold(
         // backgroundColor: Colors.grey[300],
         appBar: AppBar(

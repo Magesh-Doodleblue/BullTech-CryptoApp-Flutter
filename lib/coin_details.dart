@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'chart_details.dart';
 import 'models/chart_in_scndpage.dart';
 import 'models/wishlist_singleton.dart';
 
@@ -49,10 +50,12 @@ class CoinDetailsPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                      width: 300,
-                      height: 300,
-                      child: PriceHistoryChart(
-                          coinName: symbol)), //chart section in another page
+                    width: 300,
+                    height: 500,
+                    child: SelectCoin(),
+                    // CryptoChart(
+                    //     coinName: symbol)), //chart section in another page
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

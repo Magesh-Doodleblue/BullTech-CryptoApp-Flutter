@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
-import 'news_details_screen.dart';
+
+import '../news_details_screen.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -80,8 +81,7 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, 
-
+        automaticallyImplyLeading: false,
         title: const Text('NEWS SECTION'),
       ),
       body: RefreshIndicator(
@@ -105,7 +105,7 @@ class _NewsScreenState extends State<NewsScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  NewsDetailsScreen(news: _newsList[index]),
+                                  NewsDetailsScreen(news: newsData),
                             ));
                       },
                       child: Card(

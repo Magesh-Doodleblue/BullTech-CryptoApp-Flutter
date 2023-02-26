@@ -1,96 +1,82 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'dart:convert';
+// ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'dart:convert';
 
-class PriceHistoryChart extends StatefulWidget {
-  final String coinName;
+class CryptoPrice {
+  final DateTime date;
+  final double price;
 
-  const PriceHistoryChart({Key? key, required this.coinName}) : super(key: key);
-
-  @override
-  _PriceHistoryChartState createState() => _PriceHistoryChartState();
+  CryptoPrice(this.date, this.price);
 }
 
-class _PriceHistoryChartState extends State<PriceHistoryChart> {
-  Future<List<CandleData>>? _future;
+class CryptoChart extends StatefulWidget {
+  final String coinName;
+
+  CryptoChart({required this.coinName});
+
+  @override
+  _CryptoChartState createState() => _CryptoChartState();
+}
+
+class _CryptoChartState extends State<CryptoChart> {
+  List<CryptoPrice> _data = [];
+  Future<void> _fetchData() async {
+    // Make API call to get the price data
+    final response = await http.get(
+      Uri.parse(
+          'https://api.coingecko.com/api/v3/coins/${widget.coinName}/market_chart?vs_currency=usd&days=30'),
+    );
+
+    // Parse the response and add the price data to the list
+    final jsonData = jsonDecode(response.body);
+    final prices = jsonData['prices'];
+    _data = List<CryptoPrice>.from(prices.map((price) {
+      final date = DateTime.fromMillisecondsSinceEpoch(price[0]);
+      final priceValue = price[1];
+      return CryptoPrice(date, priceValue);
+    }));
+
+    // Update the state to re-build the chart
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
-    _future = fetchCoinPriceHistory(widget.coinName);
-  }
-
-  Future<List<CandleData>> fetchCoinPriceHistory(String coinName) async {
-    final response = await http.get(Uri.parse(
-        'https://api.coingecko.com/api/v3/coins/$coinName/market_chart?vs_currency=usd&days=30'));
-    print(response.statusCode);
-    print(response.body);
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final List<dynamic> prices = data['prices'];
-      final candleData = prices
-          .map((price) => CandleData(
-              x: DateTime.fromMillisecondsSinceEpoch(price[0].toInt()),
-              low: price[1].toDouble(),
-              high: price[1].toDouble(),
-              open: price[1].toDouble(),
-              close: price[1].toDouble()))
-          .toList();
-      return candleData;
-    } else {
-      throw Exception('Failed to load data');
-    }
+    _fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: SizedBox(
-              height: 500,
-              child: Center(
-                child: FutureBuilder<List<CandleData>>(
-                  future: _future,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<CandleData>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    } else if (snapshot.hasData) {
-                      final candleData = snapshot.data!;
-                      return SfCartesianChart(
-                        primaryXAxis: DateTimeAxis(),
-                        series: <CandleSeries>[
-                          CandleSeries<CandleData, DateTime>(
-                            dataSource: candleData,
-                            xValueMapper: (CandleData data, _) => data.x,
-                            lowValueMapper: (CandleData data, _) => data.low,
-                            highValueMapper: (CandleData data, _) => data.high,
-                            openValueMapper: (CandleData data, _) => data.open,
-                            closeValueMapper: (CandleData data, _) =>
-                                data.close,
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator(
-                        color: Colors.black,
-                      );
-                    }
-                  },
-                ),
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: _data.isNotEmpty
+            ? _buildChart()
+            : const Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-          ),
-        ],
       ),
+    );
+  }
+
+  Widget _buildChart() {
+    List<charts.Series<CryptoPrice, DateTime>> seriesList = [
+      charts.Series<CryptoPrice, DateTime>(
+        id: 'Price',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (CryptoPrice price, _) => price.date,
+        measureFn: (CryptoPrice price, _) => price.price,
+        data: _data,
+      )
+    ];
+
+    return charts.TimeSeriesChart(
+      seriesList,
+      animate: true,
+      dateTimeFactory: const charts.LocalDateTimeFactory(),
     );
   }
 }
