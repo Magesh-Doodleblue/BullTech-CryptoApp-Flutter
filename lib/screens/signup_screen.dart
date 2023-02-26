@@ -222,7 +222,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState?.save();
                           debugPrint('Signup button clicked');
-
                           userRegister(
                             context,
                             emailController.text,
