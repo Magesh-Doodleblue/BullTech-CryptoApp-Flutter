@@ -4,7 +4,6 @@ import 'package:bulltech/screens/navigation_screen_home.dart';
 import 'package:bulltech/screens/signup_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'opening_loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';

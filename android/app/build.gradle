@@ -29,7 +29,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
-
+  
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -50,8 +50,8 @@ android {
 
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 27//flutter.minSdkVersion
-        targetSdkVersion 30 //flutter.targetSdkVersion
+        minSdkVersion 21 //flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -68,18 +68,12 @@ android {
 flutter {
     source '../..'
 }
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation platform('com.google.firebase:firebase-bom:29.0.1')
-    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
 
-}
-
-dependencies {
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
 
@@ -88,5 +82,26 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-
 }
+
+// dependencies {
+//     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//     implementation 'com.google.firebase:firebase-analytics'
+//     implementation 'com.google.firebase:firebase-messaging:20.1.0'
+//     implementation 'com.android.support:multidex:1.0.3'
+//     implementation platform('com.google.firebase:firebase-bom:29.0.1')
+//     implementation 'com.google.firebase:firebase-messaging'
+
+// }
+
+// dependencies {
+//     // Import the BoM for the Firebase platform
+//     implementation platform('com.google.firebase:firebase-bom:31.2.0')
+
+//     // Add the dependency for the Firebase Authentication library
+//     // When using the BoM, you don't specify versions in Firebase library dependencies
+//     implementation 'com.google.firebase:firebase-auth-ktx'
+//     implementation 'com.google.firebase:firebase-auth'
+//     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+// }
