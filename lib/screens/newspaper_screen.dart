@@ -142,16 +142,16 @@ class _NewsScreenState extends State<NewsScreen> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  newsData['description'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Text(
+                              //     newsData['description'],
+                              //     style: const TextStyle(
+                              //       fontSize: 16,
+                              //       fontWeight: FontWeight.w400,
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

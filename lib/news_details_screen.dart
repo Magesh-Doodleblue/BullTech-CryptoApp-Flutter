@@ -9,7 +9,7 @@ class NewsDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Details Page"),
+        title: const Text("News"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -17,30 +17,36 @@ class NewsDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Text(news['title']),
-            const SizedBox(
-              height: 20,
+            Image.network(
+              news['imageUrl'],
+              width: 350,
+              height: 240,
             ),
-            if (news['imageURL'] != null)
-              Image.network(
-                news['imageURL'],
-                // width: 300,
-                height: 200,
-              ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    news['title'],
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     news['pubDate'],
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                        fontSize: 13, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 26.0),
+                  const SizedBox(height: 20.0),
                   Text(
                     news['description'],
-                    style: const TextStyle(fontSize: 16.0),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ],
               ),

@@ -15,18 +15,15 @@ void main() async {
   print(fcmToken);
   final prefs = await SharedPreferences.getInstance();
   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-  runApp(const MyApp());
+  runApp(MyApp(
+    isLoggedIn: isLoggedIn,
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late final bool isLoggedIn;
+  final bool isLoggedIn;
 
   Future<FirebaseApp> _initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
@@ -55,7 +52,9 @@ class _MyAppState extends State<MyApp> {
           future: _initializeFirebase(),
           builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return const LoadingPage();
+              return isLoggedIn
+                  ? const NavigationButton()
+                  : const LoadingPage();
             }
             return const Center(child: CircularProgressIndicator());
           },

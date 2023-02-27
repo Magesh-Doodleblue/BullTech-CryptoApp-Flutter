@@ -78,7 +78,7 @@ class _NavigationButtonState extends State<NavigationButton> {
               Icons.person,
               color: Colors.grey,
             ),
-            label: 'Account',
+            label: 'You',
           ),
         ],
       ),

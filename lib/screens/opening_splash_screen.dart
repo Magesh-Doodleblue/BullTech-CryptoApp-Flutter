@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_screen.dart';
+import 'navigation_screen_home.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -26,10 +30,9 @@ class _SplashState extends State<Splash> {
               children: [
                 Image.network(
                   "https://media.tenor.com/Qzr6WpBLiEAAAAAi/technology-tech.gif",
-                  width: 200, // set the width of the image
-                  height: 200, // set the height of the image
-                  fit: BoxFit
-                      .contain, // set the fit property to contain or cover
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.contain,
                 ),
                 Column(
                   children: const [
@@ -44,7 +47,7 @@ class _SplashState extends State<Splash> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Learn more about cryptocurrency, look to \n the future in IO Crypto',
+                        'Learn more about cryptocurrency, look to \nthe future in BULL CURRENCY',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.normal,
@@ -74,9 +77,9 @@ class _SplashState extends State<Splash> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Text(
-                              'CREATE PORTFOLITO  ',
+                              'Create Account',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 22,
                                 fontWeight: FontWeight.normal,
                               ),
                             ),

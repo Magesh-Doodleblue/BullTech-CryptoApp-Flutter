@@ -1,15 +1,17 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../coin_details.dart';
 import '../coin_page.dart';
 import '../models/coin_model.dart';
+import 'login_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,24 +25,49 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   DateTime? currentBackPressTime;
 
-  int _backButtonCounter = 0; //for backbutton
+  // int _backButtonCounter = 0;
+
+  // Future<bool> _onWillPop() async {
+  //   _backButtonCounter++;
+  //   if (_backButtonCounter == 2) {
+  //     return true;
+  //   }
+  //   Fluttertoast.showToast(
+  //     msg: 'Press back again to exit',
+  //     toastLength: Toast.LENGTH_SHORT,
+  //     gravity: ToastGravity.BOTTOM,
+  //     timeInSecForIosWeb: 2,
+  //     backgroundColor: Colors.grey[600],
+  //     textColor: Colors.white,
+  //   );
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   _backButtonCounter--;
+  //   return false;
+  // }
 
   Future<bool> _onWillPop() async {
-    _backButtonCounter++;
-    if (_backButtonCounter == 3) {
-      return true;
-    }
-    Fluttertoast.showToast(
-      msg: 'Press back again to exit',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 2,
-      backgroundColor: Colors.grey[600],
-      textColor: Colors.white,
+    bool closeApp = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit the App?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
     );
-    await Future.delayed(const Duration(seconds: 2));
-    _backButtonCounter--;
-    return false;
+    if (closeApp == true) {
+      SystemNavigator.pop();
+    }
+
+    return closeApp;
   }
 
   Future<List<Coin>> fetchCoin() async {
@@ -82,30 +109,39 @@ class _HomePageState extends State<HomePage> {
     await fetchCoin();
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
+        key: _scaffoldKey,
         // backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          automaticallyImplyLeading: false, // remove back button
-
-          // backgroundColor: Colors.grey[300],
-          title: const Text(
-            ' BULL CURRENCY',
-            style: TextStyle(
-              // color: Colors.grey[900],
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
-            ),
+          title: const Text('BULL CURRENCY'),
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
           actions: [
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               const Text("Logout"),
-              GestureDetector(
-                child: const Icon(Icons.logout),
-                onTap: () {},
+              Material(
+                child: GestureDetector(
+                  child: const Icon(Icons.logout),
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('isLoggedIn', false);
+                    Navigator.pop(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => const LoginScreenPage()),
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(
                 width: 20,
@@ -113,6 +149,8 @@ class _HomePageState extends State<HomePage> {
             ]),
           ],
         ),
+        drawer: const NavDrawer(),
+
         body: RefreshIndicator(
           onRefresh: _refreshData,
           child: isLoading
@@ -159,6 +197,39 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
         ),
+      ),
+    );
+  }
+}
+
+class NavDrawer extends StatelessWidget {
+  const NavDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text('Drawer Header'),
+          ),
+          ListTile(
+            title: const Text('Item 1'),
+            onTap: () {
+              // Do something
+            },
+          ),
+          ListTile(
+            title: const Text('Item 2'),
+            onTap: () {
+              // Do something
+            },
+          ),
+        ],
       ),
     );
   }

@@ -1,8 +1,9 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, use_build_context_synchronously
 
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreenPage extends StatefulWidget {
   const LoginScreenPage({Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  // bool isLoggedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +128,9 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MaterialButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('isLoggedIn', true);
                         if (_formKey.currentState!.validate()) {
                           debugPrint('Login button clicked');
                           signin(context, userNameController.text,

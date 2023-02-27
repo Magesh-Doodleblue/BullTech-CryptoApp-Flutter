@@ -10,6 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'account_details_adding.dart';
+
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
@@ -18,56 +20,9 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3 = TextEditingController();
-  TextEditingController controller4 = TextEditingController();
-
   PlatformFile? pickedFile;
-//for notification
-
-  String messageTitle = "Empty";
-  String notificationAlert = "alert";
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  // final CollectionReference filesRef =
-  //     FirebaseFirestore.instance.collection('files');
-  // Future<void> addFileToFirestore() async {
-  //   final CollectionReference filesRef =
-  //       FirebaseFirestore.instance.collection('users');
-  //   final File file = File('assets/sample_file.json' as List<Object>);
-  //   final Uint8List bytes = await file.readAsBytes();
-  //   await filesRef.add({
-  //     'name': 'myFile.jpg',
-  //     'bytes': bytes,
-  //     'timestamp': FieldValue.serverTimestamp(),
-  //   });
-  // }
-
-// @override
-//   void initState() {
-// ignore: todo
-//     // TODO: implement initState
-//     super.initState();
-
-//     _firebaseMessaging.configure(
-//       onMessage: (message) async{
-//         setState(() {
-//           messageTitle = message["notification"]["title"];
-//           notificationAlert = "New Notification Alert";
-//         });
-
-//       },
-//       onResume: (message) async{
-//         setState(() {
-//           messageTitle = message["data"]["title"];
-//           notificationAlert = "Application opened from Notification";
-//         });
-
-//       },
-//     );
-//   }
 
   Future uploadfile() async {
     final path = 'users/${pickedFile!.name}';
@@ -115,35 +70,24 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false, title: const Text('My Account')),
+          actions: [],
+          automaticallyImplyLeading: false,
+          title: const Text('My Profile')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            // Image.file(
-            //   File(pickedFile?.path),
-            //   width: 200,
-            //   height: 300,
-            //   fit: BoxFit.cover,
-            // // ),
-            // CircleAvatar(
-            //   child: Image.file(),
-            // ),
-            TextFormField(
-              controller: controller1,
-              decoration: const InputDecoration(hintText: "ID"),
-            ),
-            TextFormField(
-              controller: controller2,
-              decoration: const InputDecoration(hintText: "name"),
-            ),
-            TextFormField(
-              controller: controller3,
-              decoration: const InputDecoration(hintText: "type"),
-            ),
-            TextFormField(
-              controller: controller4,
-              decoration: const InputDecoration(hintText: "rating"),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AccountDetailsPage()));
+                },
+                child: const Text("Edit Info"),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -165,8 +109,6 @@ class _AccountPageState extends State<AccountPage> {
               },
               child: const Text("Upload file"),
             ),
-            Text(notificationAlert),
-            Text(messageTitle),
             ElevatedButton(
               onPressed: () async {
                 Position position = await _determinePosition();
@@ -181,16 +123,6 @@ class _AccountPageState extends State<AccountPage> {
               },
               child: const Text("GET LOCATION"),
             ),
-            IconButton(
-              onPressed: () {
-                final id = controller1.text;
-                final name = controller2.text;
-                final type = controller3.text;
-                final rating = controller4.text;
-                updateUser(id: id, name: name, type: type, rating: rating);
-              },
-              icon: const Icon(Icons.add),
-            )
           ],
         ),
       ),
@@ -222,10 +154,6 @@ class _AccountPageState extends State<AccountPage> {
 //   }
 // }
 
-Widget buildUser(User user) => ListTile(
-      title: Text(user.name),
-      subtitle: Text(user.type),
-    );
 void updateUser(
     {required String id,
     required String name,
