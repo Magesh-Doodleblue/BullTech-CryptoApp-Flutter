@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                 )
               : ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: coinList.length,
+                  itemCount: coinMarket!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
@@ -315,7 +315,7 @@ class Item2 extends StatelessWidget {
                           children: [
                             Text(
                               '\$${item.currentPrice}'.toString(),
-                              style: const TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 18),
                             ),
                             Text(
                               item.priceChange24H.toString().contains('-')
