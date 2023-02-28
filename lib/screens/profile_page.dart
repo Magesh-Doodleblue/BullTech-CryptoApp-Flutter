@@ -12,24 +12,27 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Stack(
               children: [
                 const CircleAvatar(
                   backgroundImage: NetworkImage(
                       "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
-                  radius: 50.0,
+                  radius: 70.0,
                 ),
                 Positioned(
                   right: 0.0,
                   bottom: 0.0,
                   child: Container(
+                    width: 50,
+                    height: 40,
                     decoration: const BoxDecoration(
                       color: Colors.blue,
                       shape: BoxShape.circle,
@@ -37,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: IconButton(
                       icon: const Icon(Icons.edit),
                       color: Colors.white,
+                      iconSize: 26,
                       onPressed: () {
                         // Implement edit profile picture functionality
                       },
