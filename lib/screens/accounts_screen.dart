@@ -11,6 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'account_details_adding.dart';
+import 'currency_converter.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -123,36 +124,24 @@ class _AccountPageState extends State<AccountPage> {
               },
               child: const Text("GET LOCATION"),
             ),
+            const SizedBox(
+              height: 30,
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CurrencyConverterPage()));
+              },
+              icon: const Icon(Icons.add),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-// class StreamBuilderWidget extends StatelessWidget {
-//   const StreamBuilderWidget({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<List<User>>(
-//       stream: readUsers(),
-//       builder: (context, snapshot) {
-//         if (snapshot.hasData) final users = snapshot.data;
-//         return ListView(
-//           children: [
-//             ListTile(
-//               title: Text(users?.name.toList()),
-//               subtitle: Text(users.type),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-// }
 
 void updateUser(
     {required String id,
