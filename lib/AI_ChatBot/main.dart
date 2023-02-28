@@ -7,10 +7,13 @@ import 'constants/constants.dart';
 import 'providers/chats_provider.dart';
 import 'screens/chat_screen.dart';
 
+void main() {
+  runApp(const MyChatApp());
+}
+
 class MyChatApp extends StatelessWidget {
   const MyChatApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -22,16 +25,18 @@ class MyChatApp extends StatelessWidget {
           create: (_) => ChatProvider(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Flutter ChatBOT',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
-            appBarTheme: AppBarTheme(
-              color: cardColor,
-            )),
-        home: const ChatScreen(),
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Flutter ChatBOT',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              scaffoldBackgroundColor: scaffoldBackgroundColor,
+              appBarTheme: AppBarTheme(
+                color: cardColor,
+              )),
+          home: const ChatScreen(),
+        );
+      },
     );
   }
 }

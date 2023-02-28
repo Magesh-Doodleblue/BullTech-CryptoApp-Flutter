@@ -1,4 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, depend_on_referenced_packages
 import 'package:bulltech/screens/homepage_screen.dart';
 import 'package:bulltech/screens/navigation_screen_home.dart';
 import 'package:bulltech/screens/signup_screen.dart';

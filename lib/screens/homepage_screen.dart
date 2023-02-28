@@ -2,14 +2,12 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:bulltech/AI_ChatBot/chat_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../AI_ChatBot/screens/chat_screen.dart';
+import '../AI_ChatBot/main.dart';
 import '../coin_details.dart';
 import '../coin_page.dart';
 import '../models/coin_model.dart';
@@ -25,27 +23,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late List<Coin> coinList = [];
   bool isLoading = false;
-  DateTime? currentBackPressTime;
-
-  // int _backButtonCounter = 0;
-
-  // Future<bool> _onWillPop() async {
-  //   _backButtonCounter++;
-  //   if (_backButtonCounter == 2) {
-  //     return true;
-  //   }
-  //   Fluttertoast.showToast(
-  //     msg: 'Press back again to exit',
-  //     toastLength: Toast.LENGTH_SHORT,
-  //     gravity: ToastGravity.BOTTOM,
-  //     timeInSecForIosWeb: 2,
-  //     backgroundColor: Colors.grey[600],
-  //     textColor: Colors.white,
-  //   );
-  //   await Future.delayed(const Duration(seconds: 2));
-  //   _backButtonCounter--;
-  //   return false;
-  // }
 
   Future<bool> _onWillPop() async {
     bool closeApp = await showDialog(
@@ -135,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ChatScreen(),
+                        builder: (context) => const MyChatApp(),
                       ));
                 },
                 child: const Text("AI CHAT BOT"),
