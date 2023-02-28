@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:bulltech/screens/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -134,7 +135,15 @@ class _AccountPageState extends State<AccountPage> {
                       MaterialPageRoute(
                           builder: (context) => const CurrencyConverterPage()));
                 },
-                child: const Text("Currency Converter"))
+                child: const Text("Currency Converter")),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfilePage()));
+                },
+                child: const Text("Edit Profile Page"))
           ],
         ),
       ),
