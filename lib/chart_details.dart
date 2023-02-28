@@ -3,14 +3,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'models/chart_model.dart';
+import 'models/wishlist_singleton.dart';
+import 'screens/investment_calculator.dart';
 
 class SelectCoin extends StatefulWidget {
   var selectItem;
 
-  SelectCoin({super.key, this.selectItem});
+  SelectCoin({super.key, required this.selectItem});
 
   @override
   State<SelectCoin> createState() => _SelectCoinState();
@@ -56,7 +59,7 @@ class _SelectCoinState extends State<SelectCoin> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.selectItem.id,
+                            widget.selectItem.name,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -82,7 +85,7 @@ class _SelectCoinState extends State<SelectCoin> {
                         style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.normal,
-                            color: Colors.black),
+                            color: Colors.white),
                       ),
                       SizedBox(
                         height: myHeight * 0.01,
@@ -130,7 +133,7 @@ class _SelectCoinState extends State<SelectCoin> {
                             style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.normal,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -151,7 +154,7 @@ class _SelectCoinState extends State<SelectCoin> {
                             style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.normal,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -172,7 +175,7 @@ class _SelectCoinState extends State<SelectCoin> {
                             style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.normal,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -232,7 +235,7 @@ class _SelectCoinState extends State<SelectCoin> {
                 ),
                 Center(
                   child: SizedBox(
-                    height: myHeight * 0.03,
+                    height: myHeight * 0.043,
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -281,104 +284,67 @@ class _SelectCoinState extends State<SelectCoin> {
                 SizedBox(
                   height: myHeight * 0.04,
                 ),
-                Expanded(
-                    child: ListView(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: myWidth * 0.06),
-                      child: const Text(
-                        'News',
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: myWidth * 0.06,
-                          vertical: myHeight * 0.01),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Expanded(
-                            child: Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                              textAlign: TextAlign.justify,
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 17),
-                            ),
-                          ),
-                          SizedBox(
-                            width: myWidth * 0.25,
-                            child: CircleAvatar(
-                              radius: myHeight * 0.04,
-                              backgroundImage:
-                                  const AssetImage('assets/image/11.PNG'),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ))
               ],
             )),
             SizedBox(
               height: myHeight * 0.1,
               width: myWidth,
-              // color: Colors.amber,
               child: Column(
                 children: [
                   const Divider(),
-                  SizedBox(
-                    height: myHeight * 0.01,
-                  ),
                   Row(
                     children: [
                       SizedBox(
                         width: myWidth * 0.05,
                       ),
                       Expanded(
-                        flex: 5,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: myHeight * 0.015),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: const Color(0xffFBC700)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: myHeight * 0.02,
-                              ),
-                              const Text(
-                                'Add to portfolio',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
+                        flex: 9,
+                        child: GestureDetector(
+                          onTap: () {
+                            Wishlist.instance.addCoin(widget.selectItem.name);
+                            Fluttertoast.showToast(
+                              msg:
+                                  '${widget.selectItem.name} added to wishlist',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(color: Colors.yellow)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  size: myHeight * 0.02,
+                                ),
+                                const Text(
+                                  'Add to WishList',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                       SizedBox(
                         width: myWidth * 0.05,
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: myHeight * 0.012),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.grey.withOpacity(0.2)),
-                          child: Image.asset(
-                            'assets/icons/3.1.png',
-                            height: myHeight * 0.03,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: myWidth * 0.05,
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const InvestmentCalculator()));
+                        },
+                        child: const Text("Calculator"),
                       ),
                     ],
                   )
