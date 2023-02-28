@@ -127,15 +127,14 @@ class _AccountPageState extends State<AccountPage> {
             const SizedBox(
               height: 30,
             ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CurrencyConverterPage()));
-              },
-              icon: const Icon(Icons.add),
-            ),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CurrencyConverterPage()));
+                },
+                child: const Text("Currency Converter"))
           ],
         ),
       ),
