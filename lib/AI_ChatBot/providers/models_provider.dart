@@ -1,6 +1,8 @@
-import 'package:chatgpt_course/models/models_model.dart';
-import 'package:chatgpt_course/services/api_service.dart';
+import '../models/models_model.dart';
+import '../services/api_service.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../models/models_model.dart';
 
 class ModelsProvider with ChangeNotifier {
   String currentModel = "text-davinci-003";

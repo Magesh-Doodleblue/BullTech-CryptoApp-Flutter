@@ -2,12 +2,14 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:bulltech/AI_ChatBot/chat_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../AI_ChatBot/screens/chat_screen.dart';
 import '../coin_details.dart';
 import '../coin_page.dart';
 import '../models/coin_model.dart';
@@ -128,6 +130,16 @@ class _HomePageState extends State<HomePage> {
           actions: [
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               const Text("Logout"),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatScreen(),
+                      ));
+                },
+                child: const Text("AI CHAT BOT"),
+              ),
               Material(
                 child: GestureDetector(
                   child: const Icon(Icons.logout),
