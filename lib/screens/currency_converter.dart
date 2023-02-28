@@ -5,8 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class CurrencyConverter {
-  final String apiKey =
-      'bUGqzktr0Dlx6jM8EP8MOCAyrp5aOy2q'; // Replace with your API key
+  final String apiKey = 'bUGqzktr0Dlx6jM8EP8MOCAyrp5aOy2q';
 
   Future<double> convert(String from, String to, double amount) async {
     final response = await http.get(
@@ -44,7 +43,7 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
         'USD', 'INR', amount); // Replace with desired currencies
     setState(() {
       _convertedAmount = convertedAmount;
-      _toController.text = _convertedAmount.toStringAsFixed(2);
+      _toController.text = _convertedAmount.toStringAsFixed(3);
     });
   }
 
@@ -55,7 +54,7 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
         title: const Text('Currency Converter'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(22.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -64,7 +63,6 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-
                 labelText:
                     'Enter amount in USD', // Replace with desired currency
               ),
@@ -80,9 +78,16 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
                 labelText: 'Converted amount in INR',
               ),
             ),
-            ElevatedButton(
+            const SizedBox(
+              height: 30,
+            ),
+            // ElevatedButton(
+            //   onPressed: _convertCurrency,
+            //   child: const Text('Convert'),
+            // ),
+            OutlinedButton(
               onPressed: _convertCurrency,
-              child: const Text('Convert'),
+              child: const Text("CONVERT"),
             ),
           ],
         ),
@@ -90,134 +95,3 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
     );
   }
 }
-
-
-// import 'dart:convert';
-
-// import 'package:http/http.dart' as http;
-// import 'package:flutter/material.dart';
-
-// class CurrencyConverter extends StatefulWidget {
-//   const CurrencyConverter({super.key});
-
-//   @override
-//   State<CurrencyConverter> createState() => _CurrencyConverterState();
-// }
-
-// class _CurrencyConverterState extends State<CurrencyConverter> {
-//   Map<String, dynamic> _exchangeRates = {};
-//   double _amount = 0;
-//   String _fromCurrency = 'USD';
-//   String _toCurrency = 'EUR';
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     getExchangeRates().then((exchangeRates) {
-//       setState(() {
-//         _exchangeRates = exchangeRates;
-//       });
-//     });
-//   }
-
-//   Future<Map<String, dynamic>> getExchangeRates() async {
-//     final url = 'https://api.exchangeratesapi.io/latest';
-
-//     final response = await http.get(Uri.parse(url));
-// //api key bUGqzktr0Dlx6jM8EP8MOCAyrp5aOy2q   for above api
-//     if (response.statusCode == 200) {
-//       return jsonDecode(response.body)['rates'];
-//     } else {
-//       throw Exception('Failed to load exchange rates');
-//     }
-//   }
-
-//   double convertCurrency(
-//       double amount, String fromCurrency, String toCurrency) {
-//     final fromRate = _exchangeRates[fromCurrency];
-//     final toRate = _exchangeRates[toCurrency];
-
-//     if (fromRate != null && toRate != null) {
-//       return amount * (toRate / fromRate);
-//     } else {
-//       throw Exception('Invalid currency code');
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Currency Converter'),
-//       ),
-//       body: Center(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               TextField(
-//                 keyboardType: TextInputType.number,
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _amount = double.tryParse(value) ?? 0;
-//                   });
-//                 },
-//               ),
-//               const SizedBox(height: 16),
-//               Row(
-//                 children: [
-//                   Expanded(
-//                     child: DropdownButton<String>(
-//                       value: _fromCurrency,
-//                       onChanged: (value) {
-//                         setState(() {
-//                           _fromCurrency = value!;
-//                         });
-//                       },
-//                       items: _exchangeRates.keys
-//                           .map<DropdownMenuItem<String>>(
-//                               (currencyCode) => DropdownMenuItem<String>(
-//                                     value: currencyCode,
-//                                     child: Text(currencyCode),
-//                                   ))
-//                           .toList(),
-//                     ),
-//                   ),
-//                   const SizedBox(width: 16),
-//                   Expanded(
-//                     child: DropdownButton<String>(
-//                       value: _toCurrency,
-//                       onChanged: (value) {
-//                         setState(() {
-//                           _toCurrency = value!;
-//                         });
-//                       },
-//                       items: _exchangeRates.keys
-//                           .map<DropdownMenuItem<String>>(
-//                               (currencyCode) => DropdownMenuItem<String>(
-//                                     value: currencyCode,
-//                                     child: Text(currencyCode),
-//                                   ))
-//                           .toList(),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               const SizedBox(height: 16),
-//               _exchangeRates.isNotEmpty &&
-//                       _exchangeRates.containsKey(_fromCurrency) &&
-//                       _exchangeRates.containsKey(_toCurrency)
-//                   ? Text(
-//                       '${convertCurrency(_amount, _fromCurrency, _toCurrency).toStringAsFixed(2)} $_toCurrency',
-//                       style: const TextStyle(fontSize: 24),
-//                     )
-//                   : const SizedBox(),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
