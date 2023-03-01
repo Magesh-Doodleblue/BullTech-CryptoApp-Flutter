@@ -3,8 +3,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quickblox_sdk/push/constants.dart';
-import 'package:quickblox_sdk/quickblox_sdk.dart';
 import '../models/wishlist_singleton.dart';
 
 class WishListScreen extends StatefulWidget {
@@ -70,35 +68,3 @@ class _WishListScreenState extends State<WishListScreen> {
     );
   }
 }
-//
-// void initSubscription() async {
-//   //The method which “sends” the token to the Quickblox server is initSubscription.
-//   FirebaseMessaging.instance.getToken().then((token) {
-//     QB.subscriptions.create(token!, QBPushChannelNames.GCM);
-//   });
-//
-//   try {
-//     FirebaseMessaging.onMessage.listen((message) {
-//       showNotification(message);
-//     });
-//   } on PlatformException catch (e) {
-//     //some error occurred
-//   }
-// }
-//
-// void showNotification(RemoteMessage message) {
-//   AndroidNotificationChannel channel = const AndroidNotificationChannel(
-//       'channel_id', 'some_title', 'some_description',
-//       importance: Importance.high);
-//
-//   AndroidNotificationDetails details = AndroidNotificationDetails(
-//       channel.id, channel.name, channel.description,
-//       icon: 'launch_background');
-//
-//   FlutterLocalNotificationsPlugin plugin = FlutterLocalNotificationsPlugin();
-//   int id = message.hashCode;
-//   String title = "some message title";
-//   String body = message.data["message"];
-//
-//   plugin.show(id, title, body, NotificationDetails(android: details));
-// }

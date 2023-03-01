@@ -14,6 +14,7 @@ import '../coin_details.dart';
 import '../coin_page.dart';
 import '../models/coinModel.dart';
 import '../models/coin_model.dart';
+import 'chat_bot_new.dart';
 import 'login_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -116,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MyChatApp(),
+                        builder: (context) => const ChatScreens(),
                       ));
                 },
                 child: const Text("AI CHAT BOT"),

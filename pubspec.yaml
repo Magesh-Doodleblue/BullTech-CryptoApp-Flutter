@@ -54,7 +54,6 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.0.5
   firebase_messaging: ^14.2.5
-  quickblox_sdk: ^0.12.2
   overlay_support: ^2.1.0
   xml: ^6.2.2
   image_picker: ^0.8.6+3
@@ -63,6 +62,9 @@ dependencies:
   animated_text_kit: ^4.2.2
   velocity_x: ^3.6.0
   chat_gpt_sdk: ^2.0.0
+  openai: ^1.0.0
+  chat_gpt_flutter: ^1.0.6
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:
