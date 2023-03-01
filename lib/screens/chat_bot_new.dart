@@ -35,7 +35,7 @@ class _ChatScreensState extends State<ChatScreens> {
         'prompt':
             'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nUser: $message\nAI:',
         'temperature': 0.5,
-        'max_tokens': 50,
+        'max_tokens': 5,
         'top_p': 1,
         'frequency_penalty': 0,
         'presence_penalty': 0,
