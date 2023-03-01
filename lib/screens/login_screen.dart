@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreenPage extends StatefulWidget {
   const LoginScreenPage({Key? key}) : super(key: key);
@@ -170,14 +171,6 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                         });
                       },
                     ),
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       // Navigator.push(
-                    //       //     context,
-                    //       //     MaterialPageRoute(
-                    //       //         builder: (context) => const ()));
-                    //     },
-                    //     // child: const Text("SSSSSSSSSSSS"))
                   ],
                 ),
               ],
@@ -196,9 +189,25 @@ void signin(BuildContext context, String email, String password,
       .then((authUser) {
     if (authUser.user != null) {
       Navigator.pushNamed(context, '/navigationbutton');
+      // addToDatabase(email, userName);
     }
   }).catchError((onError) {
     debugPrint(onError);
   });
 }
-//setting.arguments
+
+//adding the data in textformfeild into the database firestore.  ;)
+
+addToDatabase(String email, String userName) {
+  final CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('User_details');
+  Map<String, dynamic> data = {
+    'User_Email': email,
+    'User_Name': userName,
+  };
+  collectionReference.add(data).then((value) {
+    print("Data added successfully!");
+  }).catchError((error) {
+    print("Failed to add data: $error");
+  });
+}

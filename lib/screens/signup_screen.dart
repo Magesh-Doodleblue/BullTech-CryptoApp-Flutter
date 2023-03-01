@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +19,6 @@ class _SignupScreenState extends State<SignupScreen> {
     TextEditingController passwordController = TextEditingController();
     TextEditingController phoneNumberController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
-
     TextEditingController emailController = TextEditingController();
 
     final formKey = GlobalKey<FormState>();
@@ -171,8 +171,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         return 'You forgot to enter password';
                       } else if (value.length < 8) {
                         return 'Password must be at least 8 characters';
-                      } else if (confirmPasswordController !=
-                          passwordController) {
+                      } else if (confirmPasswordController.text !=
+                          passwordController.text) {
                         return 'Confirm Password should be same';
                       }
                       return null;
@@ -218,6 +218,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           emailController.text,
                           passwordController.text,
                           phoneNumberController.text,
+                          userNameController.text,
                         );
                       }
                     },
@@ -243,19 +244,30 @@ class _SignupScreenState extends State<SignupScreen> {
 }
 
 void userRegister(BuildContext context, String email, String password,
-    String username) async {
+    String phone, String username) async {
   await FirebaseAuth.instance
       .createUserWithEmailAndPassword(email: email, password: password)
       .then((authUser) {
     if (authUser.user != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const NavigationButton(),
-        ),
-      );
+      Navigator.pushNamed(context, '/navigationbutton');
+      addToDatabase(email, username, phone);
     }
   }).catchError((onError) {
     print(onError);
+  });
+}
+
+addToDatabase(String email, String userName, String phone) {
+  final CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('User_details');
+  Map<String, dynamic> data = {
+    'User_Email': email,
+    'User_Name': userName,
+    'user_phone': phone
+  };
+  collectionReference.doc("UserSignInDetails").set(data).then((value) {
+    print("Data added successfully!");
+  }).catchError((error) {
+    print("Failed to add data: $error");
   });
 }

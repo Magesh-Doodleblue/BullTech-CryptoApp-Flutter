@@ -13,6 +13,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'account_details_adding.dart';
 import 'currency_converter.dart';
+import 'data_retrieval.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -143,7 +144,15 @@ class _AccountPageState extends State<AccountPage> {
                       MaterialPageRoute(
                           builder: (context) => const ProfilePage()));
                 },
-                child: const Text("Edit Profile Page"))
+                child: const Text("Edit Profile Page")),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RetrieveDataFromFirestore()));
+                },
+                child: const Text("Data retrieval page"))
           ],
         ),
       ),
