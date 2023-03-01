@@ -29,17 +29,20 @@ class _ChatScreensState extends State<ChatScreens> {
       headers: {
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer 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',
+            'Bearer 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',
       },
-      body: jsonEncode({
-        'prompt':
-            'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nUser: $message\nAI:',
-        'temperature': 0.5,
-        'max_tokens': 5,
-        'top_p': 1,
-        'frequency_penalty': 0,
-        'presence_penalty': 0,
-      }),
+      body: jsonEncode(
+        {
+          'prompt':
+              'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n:\n  $message ',
+          'temperature': 0.3,
+          'max_tokens': 30,
+          'top_p': 1,
+          'frequency_penalty': 0,
+          'presence_penalty': 0,
+          // 'n': 1,
+        },
+      ),
     );
 
     final responseBody = jsonDecode(response.body);
@@ -97,24 +100,41 @@ class ChatBubble extends StatelessWidget {
   final String message;
   final bool isUserMessage;
 
-  const ChatBubble(
-      {Key? key, required this.message, required this.isUserMessage})
-      : super(key: key);
+  const ChatBubble({
+    Key? key,
+    required this.message,
+    required this.isUserMessage,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: isUserMessage ? Alignment.topRight : Alignment.topLeft,
-      child: Container(
-        decoration: BoxDecoration(
-          color: isUserMessage ? Colors.blue : Colors.black,
-          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        ),
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        child: Text(message),
-      ),
-    );
+    return isUserMessage
+        ? Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              ),
+              padding: const EdgeInsets.all(8.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              child: Text(message),
+            ),
+          )
+        : Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              ),
+              padding: const EdgeInsets.all(8.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              child: Text(message),
+            ),
+          );
   }
 }
 
