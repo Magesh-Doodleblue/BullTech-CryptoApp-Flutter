@@ -8,10 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../AI_ChatBot/main.dart';
 import '../chart_details.dart';
-import '../coin_details.dart';
-import '../coin_page.dart';
 import '../models/coinModel.dart';
 import '../models/coin_model.dart';
 import 'chat_bot_new.dart';
