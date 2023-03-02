@@ -37,7 +37,7 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
       maxWidth: 512,
       imageQuality: 90,
     );
-
+ 
     Reference ref = FirebaseStorage.instance.ref().child("profilepic.jpg");
 
     await ref.putFile(File(image!.path));

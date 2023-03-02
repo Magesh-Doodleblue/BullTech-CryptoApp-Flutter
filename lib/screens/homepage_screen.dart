@@ -115,23 +115,6 @@ class _HomePageState extends State<HomePage> {
                 _drawerController.toggle!();
               },
             ),
-            actions: [
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ChatScreens(),
-                        ));
-                  },
-                  child: const Text("AI CHAT BOT"),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-              ]),
-            ],
           ),
           body: buildBody(),
         ),

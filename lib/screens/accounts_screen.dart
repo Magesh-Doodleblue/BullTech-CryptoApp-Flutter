@@ -23,24 +23,24 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  PlatformFile? pickedFile;
+  // PlatformFile? pickedFile;
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  Future uploadfile() async {
-    final path = 'users/${pickedFile!.name}';
-    final file = File(pickedFile!.path!);
-    final ref = FirebaseStorage.instance.ref().child(path);
-    ref.putFile(file);
-  }
+  // Future uploadfile() async {
+  //   final path = 'users/${pickedFile!.name}';
+  //   final file = File(pickedFile!.path!);
+  //   final ref = FirebaseStorage.instance.ref().child(path);
+  //   ref.putFile(file);
+  // }
 
-  Future selectfile() async {
-    final result = await FilePicker.platform.pickFiles();
-    if (result == null) return;
-    setState(() {
-      pickedFile = result.files.first;
-    });
-  }
+  // Future selectfile() async {
+  //   final result = await FilePicker.platform.pickFiles();
+  //   if (result == null) return;
+  //   setState(() {
+  //     pickedFile = result.files.first;
+  //   });
+  // }
 
 //function for loaction getting
   Future<Position> _determinePosition() async {
@@ -92,51 +92,43 @@ class _AccountPageState extends State<AccountPage> {
                 child: const Text("Edit Info"),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                selectfile();
-              },
-              child: const Text("Select file"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                uploadfile();
-                Fluttertoast.showToast(
-                    msg: "File successfully added",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.grey[600],
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              },
-              child: const Text("Upload file"),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                Position position = await _determinePosition();
-                debugPrint(
-                    " Latitude value of user is ${position.latitude.toString()}");
-                debugPrint(
-                    " Longitude value of user is ${position.longitude.toString()}");
-                debugPrint(
-                    " Time value of user is ${position.timestamp.toString()}");
-                debugPrint(
-                    " Altitude value of user is ${position.altitude.toString()}");
-              },
-              child: const Text("GET LOCATION"),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     selectfile();
+            //   },
+            //   child: const Text("Select file"),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     uploadfile();
+            //     Fluttertoast.showToast(
+            //         msg: "File successfully added",
+            //         toastLength: Toast.LENGTH_SHORT,
+            //         gravity: ToastGravity.BOTTOM,
+            //         timeInSecForIosWeb: 1,
+            //         backgroundColor: Colors.grey[600],
+            //         textColor: Colors.white,
+            //         fontSize: 16.0);
+            //   },
+            //   child: const Text("Upload file"),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () async {
+            //     Position position = await _determinePosition();
+            //     debugPrint(
+            //         " Latitude value of user is ${position.latitude.toString()}");
+            //     debugPrint(
+            //         " Longitude value of user is ${position.longitude.toString()}");
+            //     debugPrint(
+            //         " Time value of user is ${position.timestamp.toString()}");
+            //     debugPrint(
+            //         " Altitude value of user is ${position.altitude.toString()}");
+            //   },
+            //   child: const Text("GET LOCATION"),
+            // ),
             const SizedBox(
               height: 30,
             ),
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CurrencyConverterPage()));
-                },
-                child: const Text("Currency Converter")),
             OutlinedButton(
                 onPressed: () {
                   Navigator.push(
