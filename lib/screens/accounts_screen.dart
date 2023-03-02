@@ -10,8 +10,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'account_details_adding.dart';
 import 'currency_converter.dart';
 import 'data_retrieval.dart';
 
@@ -23,130 +23,146 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  // PlatformFile? pickedFile;
-
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  // Future uploadfile() async {
-  //   final path = 'users/${pickedFile!.name}';
-  //   final file = File(pickedFile!.path!);
-  //   final ref = FirebaseStorage.instance.ref().child(path);
-  //   ref.putFile(file);
-  // }
+  final CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('User_details');
 
-  // Future selectfile() async {
-  //   final result = await FilePicker.platform.pickFiles();
-  //   if (result == null) return;
-  //   setState(() {
-  //     pickedFile = result.files.first;
-  //   });
-  // }
-
-//function for loaction getting
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    return await Geolocator.getCurrentPosition();
+  late String userEmail;
+  late String userName;
+  late String userPhone;
+  late String profilePicLink;
+  @override
+  void initState() {
+    loadProfilePicLink();
+    super.initState();
   }
 
-  @override
+  void loadProfilePicLink() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      profilePicLink = prefs.getString('profile_pic_link') ?? '';
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          actions: [],
-          automaticallyImplyLeading: false,
-          title: const Text('My Profile')),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AccountDetailsPage()));
-                },
-                child: const Text("Edit Info"),
+        title: const Text('Edit Profile'),
+      ),
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: collectionReference.doc('UserSignInDetails').snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text("Loading..."),
+                SizedBox(
+                  height: 10,
+                ),
+                CircularProgressIndicator(),
+              ],
+            );
+          }
+
+          userEmail = snapshot.data!.get('User_Email');
+          userName = snapshot.data!.get('User_Name');
+          userPhone = snapshot.data!.get('user_phone');
+
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Stack(
+                    children: [
+                      profilePicLink.isNotEmpty
+                          ? CircleAvatar(
+                              backgroundImage: NetworkImage(profilePicLink),
+                              radius: 70,
+                            )
+                          : const Center(
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
+                                radius: 70.0,
+                              ),
+                            ),
+                    ],
+                  ),
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'Hi, $userName',
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 44.0),
+                  const Text(
+                    "UserName",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextFormField(
+                    initialValue: userName,
+                    enabled: false,
+                    decoration: const InputDecoration(),
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Text(
+                    'Email',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextFormField(
+                    initialValue: userEmail,
+                    enabled: false,
+                    decoration: const InputDecoration(),
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Text(
+                    'Phone',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextFormField(
+                    initialValue: userPhone,
+                    enabled: false,
+                    decoration: const InputDecoration(),
+                  ),
+                  const SizedBox(height: 16.0),
+                  Center(
+                    child: OutlinedButton(
+                      child: const Text('Edit Profile'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RetrieveDataFromFirestore(),
+                            ));
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     selectfile();
-            //   },
-            //   child: const Text("Select file"),
-            // ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     uploadfile();
-            //     Fluttertoast.showToast(
-            //         msg: "File successfully added",
-            //         toastLength: Toast.LENGTH_SHORT,
-            //         gravity: ToastGravity.BOTTOM,
-            //         timeInSecForIosWeb: 1,
-            //         backgroundColor: Colors.grey[600],
-            //         textColor: Colors.white,
-            //         fontSize: 16.0);
-            //   },
-            //   child: const Text("Upload file"),
-            // ),
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     Position position = await _determinePosition();
-            //     debugPrint(
-            //         " Latitude value of user is ${position.latitude.toString()}");
-            //     debugPrint(
-            //         " Longitude value of user is ${position.longitude.toString()}");
-            //     debugPrint(
-            //         " Time value of user is ${position.timestamp.toString()}");
-            //     debugPrint(
-            //         " Altitude value of user is ${position.altitude.toString()}");
-            //   },
-            //   child: const Text("GET LOCATION"),
-            // ),
-            const SizedBox(
-              height: 30,
-            ),
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfilePage()));
-                },
-                child: const Text("Edit Profile Page")),
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RetrieveDataFromFirestore()));
-                },
-                child: const Text("Data retrieval page"))
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -186,3 +202,12 @@ class User {
     return data;
   }
 }
+
+            // OutlinedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => const ProfilePage()));
+            //     },
+            //     child: const Text("Edit Profile Page")),

@@ -1,18 +1,15 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RetrieveDataFromFirestore extends StatefulWidget {
   const RetrieveDataFromFirestore({Key? key}) : super(key: key);
-
   @override
   _RetrieveDataFromFirestoreState createState() =>
       _RetrieveDataFromFirestoreState();
@@ -21,13 +18,16 @@ class RetrieveDataFromFirestore extends StatefulWidget {
 class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('User_details');
-
   late String userEmail;
   late String userName;
   late String userPhone;
-
   final bool _isUploading = false;
   String profilePicLink = "";
+  late SharedPreferences prefs;
+  Future<void> _initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString('profilePicLink', profilePicLink);
+  }
 
   void pickUploadProfilePic() async {
     final image = await ImagePicker().pickImage(
@@ -46,6 +46,22 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
         profilePicLink = value;
         print(profilePicLink);
       });
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('profile_pic_link', profilePicLink);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadProfilePicLink();
+    _initPrefs();
+  }
+
+  void loadProfilePicLink() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      profilePicLink = prefs.getString('profile_pic_link') ?? '';
     });
   }
 
@@ -85,140 +101,116 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
             child: Form(
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        pickUploadProfilePic();
-                      },
-                      child: Stack(
-                        children: [
-                          profilePicLink.isNotEmpty
-                              ? CircleAvatar(
-                                  backgroundImage: NetworkImage(profilePicLink),
-                                  radius: 70,
-                                )
-                              : const CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
-                                  radius: 70.0,
-                                ),
-                          const Positioned(
-                            right: 0,
-                            bottom: 0,
-                            child: InkWell(
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 15,
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 18,
-                                  color: Colors.black,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          pickUploadProfilePic();
+                        },
+                        child: Stack(
+                          children: [
+                            profilePicLink.isNotEmpty
+                                ? CircleAvatar(
+                                    backgroundImage:
+                                        NetworkImage(profilePicLink),
+                                    radius: 70,
+                                  )
+                                : const CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
+                                    radius: 70.0,
+                                  ),
+                            const Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: InkWell(
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 15,
+                                  child: Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          if (_isUploading)
-                            const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                        ],
+                            if (_isUploading)
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                    // GestureDetector(
-
-                    //   child: Container(
-                    //     margin: const EdgeInsets.only(top: 80, bottom: 24),
-                    //     height: 120,
-                    //     width: 120,
-                    //     alignment: Alignment.center,
-                    //     decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(20),
-                    //     ),
-                    //     child: Center(
-                    //       child: profilePicLink == " "
-                    //           ?
-                    //               child: const CircleAvatar(
-                    //                 backgroundImage: NetworkImage(
-                    //                     "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
-                    //                 radius: 70.0,
-                    //               ),
-                    //             )
-                    //           : ClipRRect(
-                    //               borderRadius: BorderRadius.circular(20),
-                    //               child: Image.network(profilePicLink),
-                    //             ),
-                    //
-                    //   ),
-                    // ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextFormField(
-                      initialValue: userEmail,
-                      decoration: const InputDecoration(
-                        labelText: 'User Email',
+                      const SizedBox(
+                        height: 30,
                       ),
-                      onChanged: (value) {
-                        userEmail = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextFormField(
-                      initialValue: userName,
-                      decoration: const InputDecoration(
-                        labelText: 'User Name',
-                      ),
-                      onChanged: (value) {
-                        userName = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextFormField(
-                      initialValue: userPhone,
-                      decoration: const InputDecoration(
-                        labelText: 'User Phone',
-                      ),
-                      onChanged: (value) {
-                        userPhone = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: OutlinedButton(
-                        onPressed: () async {
-                          await collectionReference
-                              .doc('UserSignInDetails')
-                              .update(
-                            {
-                              'User_Email': userEmail,
-                              'User_Name': userName,
-                              'user_phone': userPhone,
-                            },
-                          );
-                          // Show a Toast with the message
-                          Fluttertoast.showToast(
-                            msg: "Data Successfully Updated",
-                            gravity: ToastGravity.BOTTOM,
-                            toastLength: Toast.LENGTH_SHORT,
-                          );
+                      TextFormField(
+                        initialValue: userEmail,
+                        decoration:
+                            const InputDecoration(labelText: 'User Email'),
+                        onChanged: (value) {
+                          userEmail = value;
                         },
-                        child: const Text('Save Info'),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      TextFormField(
+                        initialValue: userName,
+                        decoration: const InputDecoration(
+                          labelText: 'User Name',
+                        ),
+                        onChanged: (value) {
+                          userName = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      TextFormField(
+                        initialValue: userPhone,
+                        decoration: const InputDecoration(
+                          labelText: 'User Phone',
+                        ),
+                        onChanged: (value) {
+                          userPhone = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: 200,
+                        height: 50,
+                        child: OutlinedButton(
+                          onPressed: () async {
+                            await collectionReference
+                                .doc('UserSignInDetails')
+                                .update(
+                              {
+                                'User_Email': userEmail,
+                                'User_Name': userName,
+                                'user_phone': userPhone,
+                              },
+                            );
+                            // Show a Toast with the message
+                            Fluttertoast.showToast(
+                              msg: "Data Successfully Updated",
+                              gravity: ToastGravity.BOTTOM,
+                              toastLength: Toast.LENGTH_SHORT,
+                            );
+                          },
+                          child: const Text('Save Info'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

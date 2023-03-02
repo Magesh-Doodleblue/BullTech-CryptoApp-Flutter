@@ -86,8 +86,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    fetchCoin();
-    getCoinMarket();
+    //fetchCoin();
+    //getCoinMarket();
     _drawerController = ZoomDrawerController();
     super.initState();
   }
@@ -121,7 +121,9 @@ class _HomePageState extends State<HomePage> {
         borderRadius: 24.0,
         showShadow: true,
         angle: 0.0,
-        menuBackgroundColor: Colors.blue,
+        menuBackgroundColor: Colors.grey,
+        style: DrawerStyle.style1,
+        //change this to achieve diff styles like "style1 , style2 .. 4"
         slideWidth: MediaQuery.of(context).size.width * 0.65,
         openCurve: Curves.fastOutSlowIn,
         closeCurve: Curves.bounceIn,
