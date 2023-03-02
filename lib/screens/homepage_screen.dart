@@ -2,16 +2,23 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:bulltech/screens/accounts_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/config.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/chart_details.dart';
 import '../models/coinModel.dart';
 import '../models/coin_model.dart';
 import 'chat_bot_new.dart';
+import 'currency_converter.dart';
+import 'investment_calculator.dart';
 import 'login_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,6 +31,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late List<Coin> coinList = [];
   bool isLoading = false;
+  late ZoomDrawerController _drawerController;
 
   Future<bool> _onWillPop() async {
     bool closeApp = await showDialog(
@@ -80,6 +88,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     fetchCoin();
     getCoinMarket();
+    _drawerController = ZoomDrawerController();
     super.initState();
   }
 
@@ -90,99 +99,78 @@ class _HomePageState extends State<HomePage> {
     await fetchCoin();
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        key: _scaffoldKey,
-        // backgroundColor: Colors.grey[300],
-        appBar: AppBar(
-          title: const Text('BULL CURRENCY'),
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+      onWillPop: () => _onWillPop(),
+      child: ZoomDrawer(
+        controller: _drawerController,
+        menuScreen: MenuScreen(controller: _drawerController),
+        mainScreen: Scaffold(
+          appBar: AppBar(
+            title: const Text('BULL CURRENCY'),
+            leading: IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                _drawerController.toggle!();
+              },
+            ),
+            actions: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChatScreens(),
+                        ));
+                  },
+                  child: const Text("AI CHAT BOT"),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+              ]),
+            ],
           ),
-          actions: [
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              const Text("Logout"),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChatScreens(),
-                      ));
-                },
-                child: const Text("AI CHAT BOT"),
-              ),
-              Material(
-                child: GestureDetector(
-                  child: const Icon(Icons.logout),
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.setBool('isLoggedIn', false);
-                    Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const LoginScreenPage()),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-            ]),
-          ],
+          body: buildBody(),
         ),
-
-        body: RefreshIndicator(
-          onRefresh: _refreshData,
-          child: isLoading
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text("Please wait..."),
-                    ],
-                  ),
-                )
-              : ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: coinMarket!.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        // MaterialPageRoute(
-                        //   builder: (context) => CoinDetailsPage(
-                        //     name: coinList[index].name,
-                        //     symbol: coinList[index].symbol,
-                        //     imageUrl: coinList[index].imageUrl,
-                        //     price: coinList[index].price.toDouble(),
-                        //     item: "null",
-                        //   ),
-                        // ),
-                        // );
-                      },
-                      child: Item2(
-                        item: coinMarket![index],
-                      ),
-                    );
-                  },
-                ),
-        ),
+        borderRadius: 24.0,
+        showShadow: true,
+        angle: 0.0,
+        menuBackgroundColor: Colors.blue,
+        slideWidth: MediaQuery.of(context).size.width * 0.65,
+        openCurve: Curves.fastOutSlowIn,
+        closeCurve: Curves.bounceIn,
       ),
+    );
+  }
+
+  RefreshIndicator buildBody() {
+    return RefreshIndicator(
+      onRefresh: _refreshData,
+      child: isLoading
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text("Please wait..."),
+                ],
+              ),
+            )
+          : ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: coinMarket!.length,
+              itemBuilder: (context, index) {
+                return Item2(
+                  item: coinMarket![index],
+                );
+              },
+            ),
     );
   }
 
@@ -219,15 +207,102 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// child: CoinPage(
-//   name: coinList[index].name,
-//   symbol: coinList[index].symbol,
-//   imageUrl: coinList[index].imageUrl,
-//   price: coinList[index].price.toDouble(),
-//   change: coinList[index].change.toDouble(),
-//   changePercentage:
-//       coinList[index].changePercentage.toDouble(),
-// ),
+class MenuScreen extends StatelessWidget {
+  final ZoomDrawerController controller;
+
+  const MenuScreen({Key? key, required this.controller}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 60.0, left: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: const [
+              Text(
+                'Menu',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              Icon(Icons.double_arrow_outlined)
+            ],
+          ),
+          const SizedBox(height: 6.0),
+          const Divider(
+            thickness: 3,
+          ),
+          const SizedBox(height: 16.0),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const ChatScreens()),
+              );
+            },
+            child: const Text(
+              'AI ChatBot',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+          const SizedBox(height: 20),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (_) => const CurrencyConverterPage()),
+              );
+            },
+            child: const Text(
+              'Currency Converter',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const InvestmentCalculator()),
+              );
+            },
+            child: const Text(
+              'Investment Calculator',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const AccountPage()),
+              );
+            },
+            child: const Text(
+              'Profile',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          InkWell(
+            onTap: () async {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool('isLoggedIn', false);
+              Navigator.pop(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => const LoginScreenPage()),
+                ),
+              );
+            },
+            child: const Text(
+              'Logout',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class Item2 extends StatelessWidget {
   var item;
@@ -260,7 +335,6 @@ class Item2 extends StatelessWidget {
             height: 116,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              // border: Border.all(color: Colors.grey))
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,13 +342,11 @@ class Item2 extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      // width: 50,
-                      // height: 50,
+                      width: 66,
+                      height: 66,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30)),
                       child: Container(
-                        width: 66,
-                        height: 76,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.rectangle,

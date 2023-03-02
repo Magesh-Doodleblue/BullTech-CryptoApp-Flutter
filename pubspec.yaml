@@ -65,6 +65,7 @@ dependencies:
   openai: ^1.0.0
   chat_gpt_flutter: ^1.0.6
   iconsax: ^0.0.8
+  flutter_zoom_drawer: ^3.0.3
 
 dev_dependencies:
   flutter_test:
