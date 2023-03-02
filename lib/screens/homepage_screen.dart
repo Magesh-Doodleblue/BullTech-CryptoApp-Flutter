@@ -20,6 +20,7 @@ import 'chat_bot_new.dart';
 import 'currency_converter.dart';
 import 'investment_calculator.dart';
 import 'login_screen.dart';
+import 'qr_code.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -278,6 +279,21 @@ class MenuScreen extends StatelessWidget {
             },
             child: const Text(
               'Profile',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) =>  Support()),
+              );
+            },
+            child: const Text(
+              'Support',
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,

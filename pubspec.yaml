@@ -66,6 +66,7 @@ dependencies:
   chat_gpt_flutter: ^1.0.6
   iconsax: ^0.0.8
   flutter_zoom_drawer: ^3.0.3
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -81,7 +82,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/BullTech.png"
+  image_path: "assets/Bull.png"
 
 
 # For information on the generic Dart part of this file, see the

@@ -14,7 +14,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     Timer(
-      const Duration(seconds: 4),
+      const Duration(seconds: 6),
       () {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const Splash()));
