@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    //fetchCoin();
+    // fetchCoin();
     //getCoinMarket();
     _drawerController = ZoomDrawerController();
     super.initState();
@@ -208,8 +208,12 @@ class MenuScreen extends StatelessWidget {
             children: const [
               Text(
                 'Menu',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
+              Spacer(),
               Icon(Icons.double_arrow_outlined)
             ],
           ),
@@ -226,7 +230,10 @@ class MenuScreen extends StatelessWidget {
             },
             child: const Text(
               'AI ChatBot',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             ),
           ),
           const SizedBox(height: 20),
@@ -239,19 +246,27 @@ class MenuScreen extends StatelessWidget {
             },
             child: const Text(
               'Currency Converter',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             ),
           ),
           const SizedBox(height: 20.0),
           InkWell(
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const InvestmentCalculator()),
+                MaterialPageRoute(
+                  builder: (_) => const InvestmentCalculator(),
+                ),
               );
             },
             child: const Text(
               'Investment Calculator',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             ),
           ),
           const SizedBox(height: 20.0),
@@ -263,25 +278,47 @@ class MenuScreen extends StatelessWidget {
             },
             child: const Text(
               'Profile',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             ),
           ),
           const SizedBox(height: 20.0),
-          InkWell(
-            onTap: () async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', false);
-              Navigator.pop(
-                context,
-                MaterialPageRoute(
-                  builder: ((context) => const LoginScreenPage()),
+          const Spacer(
+            flex: 16,
+          ),
+          Center(
+            child: Container(
+              width: 130,
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30), color: Colors.white),
+              child: Center(
+                child: InkWell(
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('isLoggedIn', false);
+                    Navigator.pop(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => const LoginScreenPage()),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black),
+                  ),
                 ),
-              );
-            },
-            child: const Text(
-              'Logout',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
             ),
+          ),
+          const Spacer(
+            flex: 3,
           ),
         ],
       ),

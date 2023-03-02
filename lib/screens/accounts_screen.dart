@@ -1,18 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, unused_field
 
-import 'dart:io';
-
-import 'package:bulltech/screens/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'currency_converter.dart';
 import 'data_retrieval.dart';
 
 class AccountPage extends StatefulWidget {
@@ -32,6 +23,7 @@ class _AccountPageState extends State<AccountPage> {
   late String userName;
   late String userPhone;
   late String profilePicLink;
+
   @override
   void initState() {
     loadProfilePicLink();
@@ -202,12 +194,3 @@ class User {
     return data;
   }
 }
-
-            // OutlinedButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => const ProfilePage()));
-            //     },
-            //     child: const Text("Edit Profile Page")),

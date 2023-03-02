@@ -29,7 +29,7 @@ class _LoadingPageState extends State<LoadingPage> {
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffFBC700),
+        backgroundColor: const Color.fromARGB(255, 255, 237, 167),
         body: SizedBox(
           height: myHeight,
           width: myWidth,
@@ -68,10 +68,10 @@ class _LoadingPageState extends State<LoadingPage> {
                       height: myHeight * 0.005,
                     ),
                     Image.asset(
-                      'assets/escapingball.gif',
+                      'assets/circle-loading-spin.gif',
                       height: myHeight * 0.015,
                       color: Colors.black,
-                    )
+                    ),
                   ],
                 ),
               ],
