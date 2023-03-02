@@ -26,7 +26,6 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
   late String userName;
   late String userPhone;
 
-  late File _image;
   final bool _isUploading = false;
   String profilePicLink = "";
 
@@ -35,9 +34,9 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
       source: ImageSource.gallery,
       maxHeight: 512,
       maxWidth: 512,
-      imageQuality: 90,
+      imageQuality: 100,
     );
- 
+
     Reference ref = FirebaseStorage.instance.ref().child("profilepic.jpg");
 
     await ref.putFile(File(image!.path));
@@ -45,6 +44,7 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
     ref.getDownloadURL().then((value) async {
       setState(() {
         profilePicLink = value;
+        print(profilePicLink);
       });
     });
   }
@@ -97,11 +97,16 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
                       },
                       child: Stack(
                         children: [
-                          const CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
-                            radius: 70.0,
-                          ),
+                          profilePicLink.isNotEmpty
+                              ? CircleAvatar(
+                                  backgroundImage: NetworkImage(profilePicLink),
+                                  radius: 70,
+                                )
+                              : const CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
+                                  radius: 70.0,
+                                ),
                           const Positioned(
                             right: 0,
                             bottom: 0,
