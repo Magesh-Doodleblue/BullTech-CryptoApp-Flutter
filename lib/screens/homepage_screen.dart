@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:bulltech/screens/accounts_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
 
 import '../screens/chart_details.dart';
 import '../models/coinModel.dart';
@@ -87,8 +87,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // fetchCoin();
-    //getCoinMarket();
+    fetchCoin();
+    getCoinMarket();
     _drawerController = ZoomDrawerController();
     super.initState();
   }
@@ -289,7 +289,7 @@ class MenuScreen extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) =>  Support()),
+                MaterialPageRoute(builder: (_) => Support()),
               );
             },
             child: const Text(
