@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        brightness: Brightness.dark,
         // textTheme: GoogleFonts.adventProTextTheme(
         //   Theme.of(context).textTheme,
         // ),
