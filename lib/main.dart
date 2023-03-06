@@ -1,10 +1,10 @@
-import 'package:bulltech/screens/homepage_screen.dart';
-import 'package:bulltech/screens/navigation_screen_home.dart';
-import 'package:bulltech/screens/signup_screen.dart';
+import 'package:bulltech/presentation/screens/homepage_screen.dart';
+import 'package:bulltech/presentation/screens/navigation_screen_home.dart';
+import 'package:bulltech/presentation/screens/signup_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'opening_loading_screen.dart';
+import 'presentation/screens/opening_loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

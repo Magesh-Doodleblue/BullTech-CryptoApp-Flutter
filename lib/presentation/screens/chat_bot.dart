@@ -8,12 +8,10 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ChatMessage {
-  final String message;
-  final bool isUserMessage;
+import '../../data/models/chat_message_model.dart';
+import '../widgets/chat_bubble_widget.dart';
+import '../widgets/chat_input_widget.dart';
 
-  ChatMessage({required this.message, required this.isUserMessage});
-}
 
 class ChatScreens extends StatefulWidget {
   const ChatScreens({Key? key}) : super(key: key);
@@ -106,81 +104,3 @@ class _ChatScreensState extends State<ChatScreens> {
   }
 }
 
-class ChatBubble extends StatelessWidget {
-  final String message;
-  final bool isUserMessage;
-  final Color backgroundColor;
-  final Color textColor;
-
-  const ChatBubble({
-    Key? key,
-    required this.message,
-    required this.isUserMessage,
-    required this.backgroundColor,
-    required this.textColor,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-      child: Align(
-        alignment: isUserMessage ? Alignment.topRight : Alignment.topLeft,
-        child: Container(
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-          ),
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            message,
-            style: TextStyle(color: textColor),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ChatInput extends StatefulWidget {
-  final ValueChanged<String> onSubmitted;
-  final List<ChatMessage> messages;
-
-  const ChatInput({required this.onSubmitted, required this.messages});
-
-  @override
-  _ChatInputState createState() => _ChatInputState();
-}
-
-class _ChatInputState extends State<ChatInput> {
-  final _textController = TextEditingController();
-
-  void _handleSubmitted(String text) {
-    widget.onSubmitted(text);
-    _textController.clear();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _textController,
-              onSubmitted: _handleSubmitted,
-              decoration: const InputDecoration(
-                hintText: 'Type a message',
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () => _handleSubmitted(_textController.text),
-          ),
-        ],
-      ),
-    );
-  }
-}

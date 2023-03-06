@@ -1,9 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import '../models/wishlist_singleton.dart';
+import '../../data/models/wishlist_singleton.dart';
+import '../widgets/wishlist_widget.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({Key? key}) : super(key: key);
@@ -30,25 +29,7 @@ class _WishListScreenState extends State<WishListScreen> {
 
         title: const Text('Wishlist'),
       ),
-      body: GridView.builder(
-        itemCount: _coins.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          final coin = _coins[index];
-          return Card(
-            child: Center(
-              child: Text(
-                coin,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-          );
-        },
-      ),
+      body: wishlistWidget(coins: _coins),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Wishlist.instance.clearCoins();

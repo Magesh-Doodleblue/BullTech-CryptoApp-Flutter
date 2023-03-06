@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bulltech/screens/accounts_screen.dart';
+import 'package:bulltech/presentation/screens/accounts_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
@@ -13,14 +13,14 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../screens/chart_details.dart';
-import '../models/coinModel.dart';
-import '../models/coin_model.dart';
-import 'chat_bot_new.dart';
-import 'currency_converter.dart';
-import 'investment_calculator.dart';
+import 'additional features/currency_converter.dart';
+import 'additional features/investment_calculator.dart';
+import 'additional features/qr_code.dart';
+import 'chart_details_screen.dart';
+import '../../data/models/coinModel.dart';
+import '../../data/models/coin_model.dart';
 import 'login_screen.dart';
-import 'qr_code.dart';
+import 'chat_bot.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -289,7 +289,7 @@ class MenuScreen extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => Support()),
+                MaterialPageRoute(builder: (_) => const Support()),
               );
             },
             child: const Text(
