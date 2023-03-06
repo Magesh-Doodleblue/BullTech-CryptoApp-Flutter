@@ -1,9 +1,10 @@
-import 'package:bulltech/presentation/screens/homepage_screen.dart';
-import 'package:bulltech/presentation/screens/navigation_screen_home.dart';
-import 'package:bulltech/presentation/screens/signup_screen.dart';
+
+import 'package:bulltech/presentation/screens/navigation/navigation_screen_home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'presentation/screens/authentication/signup_screen.dart';
+import 'presentation/screens/navigation/homepage_screen.dart';
 import 'presentation/screens/opening_loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        // brightness:  Brightness.dark: Brightness.light,
         // textTheme: GoogleFonts.adventProTextTheme(
         //   Theme.of(context).textTheme,
         // ),

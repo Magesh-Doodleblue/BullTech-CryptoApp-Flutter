@@ -1,7 +1,9 @@
 
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
-import '../screens/signup_screen.dart';
+import '../../presentation/screens/authentication/signup_screen.dart';
 
 class signinWidget extends StatelessWidget {
   const signinWidget({

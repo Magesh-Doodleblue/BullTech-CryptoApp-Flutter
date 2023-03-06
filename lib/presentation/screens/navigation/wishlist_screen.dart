@@ -1,8 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import '../../data/models/wishlist_singleton.dart';
-import '../widgets/wishlist_widget.dart';
+import '../../../data/models/wishlist_singleton.dart';
+import '../../widgets/wishlist_widget.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({Key? key}) : super(key: key);

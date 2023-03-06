@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'accounts_screen.dart';
-import 'newspaper_screen.dart';
-import 'wishlist_screen.dart';
+import '../account/accounts_screen.dart';
+import '../newspaper/newspaper_screen.dart';
+
 import 'homepage_screen.dart';
+import 'wishlist_screen.dart';
+
 
 class NavigationButton extends StatefulWidget {
   const NavigationButton({super.key});

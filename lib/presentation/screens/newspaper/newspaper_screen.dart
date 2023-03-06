@@ -1,13 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
-
 import 'news_details_screen.dart';
-
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
 

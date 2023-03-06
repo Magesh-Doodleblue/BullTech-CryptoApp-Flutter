@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../screens/data_retrieval.dart';
+import '../screens/account/data_retrieval.dart';
 
 class myProfileWidget extends StatelessWidget {
   const myProfileWidget({

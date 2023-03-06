@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../data/models/chart_model.dart';
-import '../../data/models/wishlist_singleton.dart';
-import 'additional features/investment_calculator.dart';
+import '../../../data/models/chart_model.dart';
+import '../../../data/models/wishlist_singleton.dart';
+import '../additional features/investment_calculator.dart';
 
 class SelectCoin extends StatefulWidget {
   var selectItem;

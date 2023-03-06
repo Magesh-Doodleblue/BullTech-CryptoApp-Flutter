@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/my_profile_widget.dart';
+import '../../widgets/my_profile_widget.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
