@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'presentation/screens/authentication/signup_screen.dart';
 import 'presentation/screens/navigation/homepage_screen.dart';
-import 'presentation/screens/opening_loading_screen.dart';
+import 'presentation/screens/splash_screen/opening_loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

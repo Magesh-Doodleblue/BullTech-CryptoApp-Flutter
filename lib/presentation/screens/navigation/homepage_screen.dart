@@ -20,7 +20,7 @@ import '../additional features/investment_calculator.dart';
 import '../additional features/qr_code.dart';
 import '../authentication/login_screen.dart';
 import '../chart/chart_details_screen.dart';
-import '../chat_bot.dart';
+import '../chatbot/chat_bot.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

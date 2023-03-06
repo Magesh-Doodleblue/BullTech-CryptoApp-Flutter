@@ -8,9 +8,9 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../../data/models/chat_message_model.dart';
-import '../widgets/chat_bubble_widget.dart';
-import '../widgets/chat_input_widget.dart';
+import '../../../data/models/chat_message_model.dart';
+import '../../widgets/chat_bubble_widget.dart';
+import '../../widgets/chat_input_widget.dart';
 
 
 class ChatScreens extends StatefulWidget {

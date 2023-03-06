@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'splash_screen/opening_splash_screen.dart';
-import '../widgets/opening_loading_widget.dart';
+import 'opening_splash_screen.dart';
+import '../../widgets/opening_loading_widget.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
