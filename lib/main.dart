@@ -2,6 +2,7 @@
 import 'package:bulltech/presentation/screens/navigation/navigation_screen_home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'presentation/screens/authentication/signup_screen.dart';
 import 'presentation/screens/navigation/homepage_screen.dart';
@@ -37,9 +38,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         // brightness:  Brightness.dark: Brightness.light,
-        // textTheme: GoogleFonts.adventProTextTheme(
-        //   Theme.of(context).textTheme,
-        // ),
+        textTheme: GoogleFonts.oxygenTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       initialRoute: "/",
       routes: {

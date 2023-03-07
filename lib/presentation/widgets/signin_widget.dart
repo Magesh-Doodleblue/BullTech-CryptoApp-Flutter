@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../domain/authentication/signin_authentication.dart';
 import '../../presentation/screens/authentication/signup_screen.dart';
 
 class signinWidget extends StatelessWidget {
@@ -49,22 +50,7 @@ class signinWidget extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   controller: emailController,
                   style: const TextStyle(color: Colors.white),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter email address';
-                    } else if (!RegExp(
-                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$') //check one @ and 1 .
-                        .hasMatch(value)) {
-                      return 'Enter a valid email address';
-                    } else {
-                      int atSignCount = value.split('@').length - 1;
-                      int dotCount = value.split('.').length - 1;
-                      if (atSignCount != 1 || dotCount != 1) {
-                        return 'Email address must contain exactly one @ and one .';
-                      }
-                    }
-                    return null;
-                  },
+                  validator: signinEmailValidation,
                   decoration: InputDecoration(
                     labelText: "Email",
                     hintText: "Type Email ID",
@@ -82,14 +68,7 @@ class signinWidget extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   controller: userNameController,
                   style: const TextStyle(color: Colors.white),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'You forgot to give Username';
-                    } else if (value.length < 5) {
-                      return 'Enter the valid Username';
-                    }
-                    return null;
-                  },
+                  validator: signinUserNameValidation,
                   decoration: InputDecoration(
                     labelText: "Username",
                     hintText: "Type UserName",
@@ -107,16 +86,7 @@ class signinWidget extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   controller: phoneNumberController,
                   style: const TextStyle(color: Colors.white),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'You forgot to enter phone number';
-                    } else if (value.length != 10) {
-                      return 'Phone should have 10 Digits';
-                    } else if (!RegExp(r'^[6-9]\d{9}$').hasMatch(value)) {
-                      return 'Enter a valid phone number';
-                    }
-                    return null;
-                  },
+                  validator: signinPhoneValidation,
                   decoration: InputDecoration(
                     labelText: "Phone",
                     hintText: "Give Phone number",
@@ -135,18 +105,7 @@ class signinWidget extends StatelessWidget {
                   controller: passwordController,
                   style: const TextStyle(color: Colors.white),
                   obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'You forgot to enter password';
-                    } else if (value.length < 8) {
-                      return 'Password must be at least 8 characters';
-                    } else if (!RegExp(
-                            r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                        .hasMatch(value)) {
-                      return 'Password should have at @1least 1 letter, 1 number, 1 special character';
-                    }
-                    return null;
-                  },
+                  validator: signinPassValidation,
                   decoration: InputDecoration(
                     labelText: "Password",
                     hintText: "Type Password",
@@ -239,4 +198,8 @@ class signinWidget extends StatelessWidget {
       ],
     );
   }
+
+
+
+
 }

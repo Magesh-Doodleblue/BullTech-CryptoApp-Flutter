@@ -31,13 +31,13 @@ class _InvestmentCalculatorState extends State<InvestmentCalculator> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Principal Amount: \$${_principal.toStringAsFixed(0)}',
+              'Principal Amount: Rs.${_principal.toStringAsFixed(0)}',
               style: const TextStyle(fontSize: 20),
             ),
             Slider(
               value: _principal,
               min: 1000,
-              max: 100000,
+              max: 1000000,
               divisions: 50,
               label: _principal.round().toString(),
               onChanged: (double value) {
@@ -82,7 +82,7 @@ class _InvestmentCalculatorState extends State<InvestmentCalculator> {
             ),
             const SizedBox(height: 40),
             Text(
-              'Total Amount: \$${calculateTotal(_principal, _rate, _years).toStringAsFixed(2)}',
+              'Total Amount: Rs.${calculateTotal(_principal, _rate, _years).toStringAsFixed(3)}',
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ],
