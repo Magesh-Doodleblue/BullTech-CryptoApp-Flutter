@@ -39,7 +39,7 @@ class signinWidget extends StatelessWidget {
                   'WELCOME',
                   style: TextStyle(
                     fontSize: 30,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -49,7 +49,7 @@ class signinWidget extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: emailController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   validator: signinEmailValidation,
                   decoration: InputDecoration(
                     labelText: "Email",
@@ -67,7 +67,7 @@ class signinWidget extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: userNameController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   validator: signinUserNameValidation,
                   decoration: InputDecoration(
                     labelText: "Username",
@@ -85,7 +85,7 @@ class signinWidget extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: phoneNumberController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   validator: signinPhoneValidation,
                   decoration: InputDecoration(
                     labelText: "Phone",
@@ -103,7 +103,7 @@ class signinWidget extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: passwordController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   obscureText: true,
                   validator: signinPassValidation,
                   decoration: InputDecoration(
@@ -123,7 +123,7 @@ class signinWidget extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   controller: confirmPasswordController,
                   obscureText: true,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'You forgot to enter password';
@@ -153,7 +153,7 @@ class signinWidget extends StatelessWidget {
                   children: [
                     const Text(
                       'Already have an account! ',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                     ),
                     TextButton(
                         onPressed: () {
@@ -182,7 +182,8 @@ class signinWidget extends StatelessWidget {
                   },
                   color: Colors.black,
                   child: const SizedBox(
-                    width: 100,
+                    width: 120,
+                    height: 60,
                     child: Center(
                       child: Text(
                         'Signup',

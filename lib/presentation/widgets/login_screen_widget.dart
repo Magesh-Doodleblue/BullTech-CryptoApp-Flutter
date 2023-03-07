@@ -27,7 +27,7 @@ ListView loginWidget(BuildContext context) {
                 'WELCOME',
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -37,7 +37,7 @@ ListView loginWidget(BuildContext context) {
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: userNameController,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.black),
                 validator: loginUserNameValidation,
                 decoration: InputDecoration(
                   labelText: "Username",
@@ -55,7 +55,7 @@ ListView loginWidget(BuildContext context) {
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: passwordController,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.black),
                 obscureText: true,
                 validator: loginPassValidation,
                 decoration: InputDecoration(
@@ -76,7 +76,7 @@ ListView loginWidget(BuildContext context) {
                 children: [
                   const Text(
                     'Didnt have an account! ',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                   TextButton(
                       onPressed: () {
@@ -113,11 +113,11 @@ ListView loginWidget(BuildContext context) {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 13),
                   const SizedBox(
                       width: 2,
                       height: 33,
-                      child: Divider(thickness: 32, color: Colors.white)),
+                      child: Divider(thickness: 32, color: Colors.black)),
                   IconButton(
                     icon: ClipRRect(
                       borderRadius: BorderRadius.circular(40),
