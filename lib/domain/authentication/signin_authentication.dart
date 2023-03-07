@@ -1,5 +1,10 @@
 
-  String? signinEmailValidation(value) {
+  import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import '../database_adding/database_adding.dart';
+
+String? signinEmailValidation(value) {
                   if (value!.isEmpty) {
                     return 'Enter email address';
                   } else if (!RegExp(
@@ -60,3 +65,17 @@
 
 
 
+
+void userRegister(BuildContext context, String email, String password,
+    String phone, String username) async {
+  await FirebaseAuth.instance
+      .createUserWithEmailAndPassword(email: email, password: password)
+      .then((authUser) {
+    if (authUser.user != null) {
+      Navigator.pushNamed(context, '/navigationbutton');
+      addToDatabase(email, username, phone);
+    }
+  }).catchError((onError) {
+    print(onError);
+  });
+}
