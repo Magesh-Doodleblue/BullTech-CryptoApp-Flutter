@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 import 'news_details_screen.dart';
+
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
 
@@ -88,7 +89,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 final newsData = _newsList[index] as Map<String, dynamic>;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       if (kDebugMode) {
                         print('REDIRECTING');
@@ -101,15 +102,18 @@ class _NewsScreenState extends State<NewsScreen> {
                           ));
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom:18),
+                      padding: const EdgeInsets.only(bottom: 18),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.network(
-                            newsData['imageUrl'],
-                            width: double.infinity,
-                            height: 200,
-                            fit: BoxFit.cover,
+                          Hero(
+                            tag: "newsImage_${newsData['imageUrl']}",
+                            child: Image.network(
+                              newsData['imageUrl'],
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),

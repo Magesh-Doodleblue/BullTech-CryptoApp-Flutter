@@ -2,16 +2,15 @@
 
 import 'dart:async';
 
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+// import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+// import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../../../data/models/chat_message_model.dart';
 import '../../widgets/chat_bubble_widget.dart';
 import '../../widgets/chat_input_widget.dart';
-
 
 class ChatScreens extends StatefulWidget {
   const ChatScreens({Key? key}) : super(key: key);
@@ -103,4 +102,3 @@ class _ChatScreensState extends State<ChatScreens> {
     );
   }
 }
-

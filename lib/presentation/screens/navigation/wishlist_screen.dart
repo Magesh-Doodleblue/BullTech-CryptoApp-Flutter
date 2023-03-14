@@ -25,8 +25,6 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // remove back button
-
         title: const Text('Wishlist'),
       ),
       body: wishlistWidget(coins: _coins),

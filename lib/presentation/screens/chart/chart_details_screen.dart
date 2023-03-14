@@ -36,11 +36,12 @@ class _SelectCoinState extends State<SelectCoin> {
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-      body: chartDetailsWidget(myHeight, myWidth, context),  //build method 
+      body: chartDetailsWidget(myHeight, myWidth, context), //build method
     ));
   }
 
-  SizedBox chartDetailsWidget(double myHeight, double myWidth, BuildContext context) {
+  SizedBox chartDetailsWidget(
+      double myHeight, double myWidth, BuildContext context) {
     return SizedBox(
       height: myHeight,
       width: myWidth,
@@ -54,9 +55,12 @@ class _SelectCoinState extends State<SelectCoin> {
               children: [
                 Row(
                   children: [
-                    SizedBox(
-                        height: myHeight * 0.08,
-                        child: Image.network(widget.selectItem.image)),
+                    Hero(
+                      tag: widget.selectItem.image,
+                      child: SizedBox(
+                          height: myHeight * 0.08,
+                          child: Image.network(widget.selectItem.image)),
+                    ),
                     SizedBox(
                       width: myWidth * 0.03,
                     ),
@@ -100,11 +104,11 @@ class _SelectCoinState extends State<SelectCoin> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
-                          color: widget.selectItem
-                                      .marketCapChangePercentage24H >=
-                                  0
-                              ? Colors.green
-                              : Colors.red),
+                          color:
+                              widget.selectItem.marketCapChangePercentage24H >=
+                                      0
+                                  ? Colors.green
+                                  : Colors.red),
                     ),
                   ],
                 ),
@@ -308,8 +312,7 @@ class _SelectCoinState extends State<SelectCoin> {
                         onTap: () {
                           Wishlist.instance.addCoin(widget.selectItem.name);
                           Fluttertoast.showToast(
-                            msg:
-                                '${widget.selectItem.name} added to wishlist',
+                            msg: '${widget.selectItem.name} added to wishlist',
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 1,

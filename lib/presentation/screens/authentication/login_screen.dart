@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../widgets/login_screen_widget.dart';
 
-
 class LoginScreenPage extends StatefulWidget {
   const LoginScreenPage({Key? key}) : super(key: key);
 
@@ -14,8 +13,6 @@ class LoginScreenPage extends StatefulWidget {
 }
 
 class _LoginScreenPageState extends State<LoginScreenPage> {
-
-
   // bool isLoggedIn = false;
 
   @override
@@ -30,11 +27,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
       body: loginWidget(context),
     );
   }
-
-  
-
 }
-
 
 //adding the data in textformfeild into the database firestore.  ;)
 

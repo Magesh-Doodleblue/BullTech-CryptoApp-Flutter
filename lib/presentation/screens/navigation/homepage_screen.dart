@@ -21,6 +21,7 @@ import '../additional features/qr_code.dart';
 import '../authentication/login_screen.dart';
 import '../chart/chart_details_screen.dart';
 import '../chatbot/chat_bot.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -86,8 +87,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    fetchCoin();
-    getCoinMarket();
+    // fetchCoin();
+    // getCoinMarket();
     _drawerController = ZoomDrawerController();
     super.initState();
   }
@@ -356,11 +357,13 @@ class Item2 extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (contest) => SelectCoin(
-                          selectItem: item,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (contest) => SelectCoin(
+                  selectItem: item,
+                ),
+              ),
+            );
           },
           child: Container(
             padding: EdgeInsets.only(
@@ -389,8 +392,11 @@ class Item2 extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        child: Image.network(
-                          item.image,
+                        child: Hero(
+                          tag: item.image,
+                          child: Image.network(
+                            item.image,
+                          ),
                         ),
                       ),
                     ),

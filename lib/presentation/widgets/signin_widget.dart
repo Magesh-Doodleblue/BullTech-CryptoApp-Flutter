@@ -1,10 +1,8 @@
-
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
 
 import '../../domain/authentication/signin_authentication.dart';
-import '../../presentation/screens/authentication/signup_screen.dart';
 
 class signinWidget extends StatelessWidget {
   const signinWidget({
@@ -199,8 +197,4 @@ class signinWidget extends StatelessWidget {
       ],
     );
   }
-
-
-
-
 }

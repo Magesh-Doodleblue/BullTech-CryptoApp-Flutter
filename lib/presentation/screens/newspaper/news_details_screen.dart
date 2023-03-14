@@ -22,10 +22,13 @@ class NewsDetailsScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Image.network(
-            news['imageUrl'],
-            width: 350,
-            height: 240,
+          Hero(
+            tag: "newsImage_${news['imageUrl']}",
+            child: Image.network(
+              news['imageUrl'],
+              width: 350,
+              height: 240,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(18.0),
