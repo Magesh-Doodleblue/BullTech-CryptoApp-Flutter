@@ -13,6 +13,20 @@ class Support extends StatefulWidget {
 
 class _SupportState extends State<Support> {
   TextEditingController feedBackController = TextEditingController();
+  TextEditingController feedBackUserNameController = TextEditingController();
+  @override
+  void dispose() {
+    feedBackController.dispose();
+    feedBackUserNameController.dispose();
+    super.dispose();
+  }
+
+  void _handlePress() {
+    setState(() {
+      feedBackUserNameController.text = '';
+      feedBackController.text = '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +34,10 @@ class _SupportState extends State<Support> {
       appBar: AppBar(
         title: const Text("Support"),
       ),
-      body: feedbackQrWidget(feedBackController: feedBackController),
+      body: feedbackQrWidget(
+        feedBackController: feedBackController,
+        feedBackUserNameController: feedBackUserNameController,
+      ),
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../screens/account/data_retrieval.dart';
@@ -37,7 +36,7 @@ class myProfileWidget extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
                               "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
-                          radius: 70.0,
+                          radius: 70,
                         ),
                       ),
               ],
@@ -97,9 +96,8 @@ class myProfileWidget extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            const RetrieveDataFromFirestore(),
-                      ));
+                        builder: (context) => const RetrieveDataFromFirestore(),
+                      ),);
                 },
               ),
             ),

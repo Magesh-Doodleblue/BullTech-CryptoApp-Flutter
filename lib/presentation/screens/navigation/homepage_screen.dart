@@ -87,8 +87,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // fetchCoin();
-    // getCoinMarket();
+    fetchCoin();
+    getCoinMarket();
     _drawerController = ZoomDrawerController();
     super.initState();
   }
