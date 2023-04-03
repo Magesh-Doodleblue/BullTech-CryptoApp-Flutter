@@ -21,13 +21,6 @@ class _SupportState extends State<Support> {
     super.dispose();
   }
 
-  void _handlePress() {
-    setState(() {
-      feedBackUserNameController.text = '';
-      feedBackController.text = '';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

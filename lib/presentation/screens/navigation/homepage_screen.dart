@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    fetchCoin();
+    // fetchCoin();
     getCoinMarket();
     _drawerController = ZoomDrawerController();
     super.initState();
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
         borderRadius: 24.0,
         showShadow: true,
         angle: 0.0,
-        menuBackgroundColor: Colors.grey,
+        menuBackgroundColor: const Color.fromARGB(255, 250, 176, 176),
         style: DrawerStyle.style1,
         //change this to achieve diff styles like "style1 , style2 .. 4"
         slideWidth: MediaQuery.of(context).size.width * 0.65,
@@ -148,14 +148,32 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             )
-          : ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: coinMarket!.length,
-              itemBuilder: (context, index) {
-                return Item2(
-                  item: coinMarket![index],
-                );
-              },
+          : Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 18.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Trending Coins",
+                      style: TextStyle(
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: coinMarket!.length,
+                    itemBuilder: (context, index) {
+                      return Item2(
+                        item: coinMarket![index],
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
     );
   }
@@ -372,7 +390,7 @@ class Item2 extends StatelessWidget {
               top: myHeight * 0.02,
               bottom: myHeight * 0.02,
             ),
-            height: 116,
+            height: 136,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -388,7 +406,7 @@ class Item2 extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30)),
                       child: Container(
                         decoration: const BoxDecoration(
-                          color: Colors.white,
+                          // color: Colors.white,
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
@@ -432,7 +450,7 @@ class Item2 extends StatelessWidget {
                             ),
                             Text(
                               item.priceChange24H.toString().contains('-')
-                                  ? "-\$${item.priceChange24H.toStringAsFixed(3).toString().replaceAll('-', '')}"
+                                  ? "-\$${item.priceChange24H.toStringAsFixed(2).toString().replaceAll('-', '')}"
                                   : "\$" +
                                       item.priceChange24H.toStringAsFixed(2),
                               style: const TextStyle(

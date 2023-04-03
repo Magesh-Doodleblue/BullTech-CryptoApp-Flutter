@@ -1,4 +1,3 @@
-
 import 'package:bulltech/presentation/screens/navigation/navigation_screen_home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         // brightness:  Brightness.dark: Brightness.light,
-        textTheme: GoogleFonts.oxygenTextTheme(
+        textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
       ),

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:bulltech/presentation/screens/additional%20features/currency_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,16 @@ class _SelectCoinState extends State<SelectCoin> {
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-      body: chartDetailsWidget(myHeight, myWidth, context), //build method
+      appBar: AppBar(
+        title: Text('${widget.selectItem.name}\'s Chart'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            chartDetailsWidget(myHeight, myWidth, context),
+          ],
+        ),
+      ), //build method
     ));
   }
 
@@ -86,140 +96,155 @@ class _SelectCoinState extends State<SelectCoin> {
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '\$${widget.selectItem.currentPrice}',
-                      style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white),
-                    ),
-                    SizedBox(
-                      height: myHeight * 0.01,
-                    ),
-                    Text(
-                      '${widget.selectItem.marketCapChangePercentage24H}%',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                          color:
-                              widget.selectItem.marketCapChangePercentage24H >=
-                                      0
-                                  ? Colors.green
-                                  : Colors.red),
-                    ),
-                  ],
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '\$${widget.selectItem.currentPrice}',
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: myHeight * 0.01,
+                      ),
+                      Text(
+                        '${widget.selectItem.marketCapChangePercentage24H}%',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: widget.selectItem
+                                        .marketCapChangePercentage24H >=
+                                    0
+                                ? Colors.green
+                                : Colors.red),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
           const Divider(),
           Expanded(
-              child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: myWidth * 0.05, vertical: myHeight * 0.02),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        const Text(
-                          'Low',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey),
-                        ),
-                        SizedBox(
-                          height: myHeight * 0.01,
-                        ),
-                        Text(
-                          '\$${widget.selectItem.low24H}',
-                          style: const TextStyle(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: myWidth * 0.05, vertical: myHeight * 0.02),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          const Text(
+                            'Low',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: myHeight * 0.01,
+                          ),
+                          Text(
+                            '\$${widget.selectItem.low24H}',
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.normal,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text(
-                          'High',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey),
-                        ),
-                        SizedBox(
-                          height: myHeight * 0.01,
-                        ),
-                        Text(
-                          '\$${widget.selectItem.high24H}',
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text(
-                          'Vol',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey),
-                        ),
-                        SizedBox(
-                          height: myHeight * 0.01,
-                        ),
-                        Text(
-                          '\$${widget.selectItem.totalVolume}M',
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: myHeight * 0.015,
-              ),
-              SizedBox(
-                height: myHeight * 0.4,
-                width: myWidth,
-                // color: Colors.amber,
-                child: isRefresh == true
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: Color(0xffFBC700),
-                        ),
-                      )
-                    : itemChart == null
-                        ? Padding(
-                            padding: EdgeInsets.all(myHeight * 0.06),
-                            child: const Center(
-                              child: Text(
-                                'Attention this Api is free, so you cannot send multiple requests per second, please wait and try again later.',
-                                style: TextStyle(fontSize: 18),
-                              ),
+                              color: Colors.black,
                             ),
-                          )
-                        : SfCartesianChart(
-                            trackballBehavior: trackballBehavior,
-                            zoomPanBehavior: ZoomPanBehavior(
-                                enablePinching: true, zoomMode: ZoomMode.x),
-                            series: <CandleSeries>[
-                              CandleSeries<ChartModel, int>(
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            'High',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          SizedBox(
+                            height: myHeight * 0.01,
+                          ),
+                          Text(
+                            '\$${widget.selectItem.high24H}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Vol',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          SizedBox(
+                            height: myHeight * 0.01,
+                          ),
+                          Text(
+                            '\$${widget.selectItem.totalVolume}M',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: myHeight * 0.015,
+                ),
+                SizedBox(
+                  height: myHeight * 0.4,
+                  width: myWidth,
+                  // color: Colors.amber,
+                  child: isRefresh == true
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(
+                              0xffFBC700,
+                            ),
+                          ),
+                        )
+                      : itemChart == null
+                          ? Padding(
+                              padding: EdgeInsets.all(
+                                myHeight * 0.06,
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Attention this Api is free, so you cannot send multiple requests per second, please wait and try again later.',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SfCartesianChart(
+                              trackballBehavior: trackballBehavior,
+                              zoomPanBehavior: ZoomPanBehavior(
+                                enablePinching: true,
+                                zoomMode: ZoomMode.x,
+                              ),
+                              series: <CandleSeries>[
+                                CandleSeries<ChartModel, int>(
                                   enableSolidCandles: true,
                                   enableTooltip: true,
                                   bullColor: Colors.green,
@@ -235,130 +260,214 @@ class _SelectCoinState extends State<SelectCoin> {
                                       sales.open,
                                   closeValueMapper: (ChartModel sales, _) =>
                                       sales.close,
-                                  animationDuration: 55)
-                            ],
-                          ),
-              ),
-              SizedBox(
-                height: myHeight * 0.01,
-              ),
-              Center(
-                child: SizedBox(
-                  height: myHeight * 0.043,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: text.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: myWidth * 0.02),
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              textBool = [
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false
-                              ];
-                              textBool[index] = true;
-                            });
-                            setDays(text[index]);
-                            getChart();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: myWidth * 0.03,
-                                vertical: myHeight * 0.005),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: textBool[index] == true
-                                  ? const Color(0xffFBC700).withOpacity(0.3)
-                                  : Colors.transparent,
+                                  animationDuration: 55,
+                                ),
+                              ],
                             ),
-                            child: Text(
-                              text[index],
-                              style: const TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  height: myHeight * 0.01,
+                ),
+                Center(
+                  child: SizedBox(
+                    height: myHeight * 0.043,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: text.length,
+                      itemBuilder: (
+                        context,
+                        index,
+                      ) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: myWidth * 0.02,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                textBool = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                                textBool[index] = true;
+                              });
+                              setDays(text[index]);
+                              getChart();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: myWidth * 0.03,
+                                  vertical: myHeight * 0.005),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  5,
+                                ),
+                                color: textBool[index] == true
+                                    ? const Color.fromARGB(
+                                        255,
+                                        255,
+                                        139,
+                                        139,
+                                      )
+                                    // ? const Color(0xffFBC700).withOpacity(0.3)
+                                    : Colors.transparent,
+                              ),
+                              child: Text(
+                                text[index],
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: myHeight * 0.04,
-              ),
-            ],
-          )),
-          SizedBox(
-            height: myHeight * 0.1,
-            width: myWidth,
-            child: Column(
-              children: [
+                SizedBox(
+                  height: myHeight * 0.04,
+                ),
                 const Divider(),
                 Row(
                   children: [
                     SizedBox(
-                      width: myWidth * 0.05,
+                      width: myWidth * 0.02,
                     ),
-                    Expanded(
-                      flex: 9,
-                      child: GestureDetector(
-                        onTap: () {
-                          Wishlist.instance.addCoin(widget.selectItem.name);
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Wishlist.instance.addCoin(
+                            widget.selectItem.name,
+                          );
                           Fluttertoast.showToast(
                             msg: '${widget.selectItem.name} added to wishlist',
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.grey,
+                            backgroundColor: Colors.black,
                             textColor: Colors.white,
                             fontSize: 16.0,
                           );
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Colors.yellow)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: myHeight * 0.02,
-                              ),
-                              const Text(
-                                'Add to WishList',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 66, 66),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              16,
+                            ),
                           ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add,
+                              size: myHeight * 0.035,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text(
+                              'Add to WishList',
+                              style: TextStyle(
+                                // fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: myWidth * 0.05,
+                      width: myWidth * 0.02,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.34,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const InvestmentCalculator()));
-                      },
-                      child: const Text("Calculator"),
+                              builder: (context) =>
+                                  const InvestmentCalculator(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 66, 66),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              16,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          "Calculator",
+                          style: TextStyle(
+                            // fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: myHeight * 0.02,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: myWidth * 0.02,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const CurrencyConverterPage(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 66, 66),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              16,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          "Currency Converter",
+                          style: TextStyle(
+                            // fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

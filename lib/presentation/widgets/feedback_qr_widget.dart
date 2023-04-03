@@ -1,11 +1,10 @@
-import 'package:bulltech/presentation/widgets/login_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../domain/database_adding/database_adding.dart';
 import 'toast.dart';
 
-class feedbackQrWidget extends StatelessWidget {
+class feedbackQrWidget extends StatefulWidget {
   const feedbackQrWidget({
     super.key,
     required this.feedBackController,
@@ -14,6 +13,19 @@ class feedbackQrWidget extends StatelessWidget {
 
   final TextEditingController feedBackController;
   final TextEditingController feedBackUserNameController;
+
+  @override
+  State<feedbackQrWidget> createState() => _feedbackQrWidgetState();
+}
+
+class _feedbackQrWidgetState extends State<feedbackQrWidget> {
+  void _handlePress() {
+    setState(() {
+      widget.feedBackUserNameController.text = '';
+      widget.feedBackController.text = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -55,7 +67,7 @@ class feedbackQrWidget extends StatelessWidget {
               SizedBox(
                 width: 350,
                 child: TextFormField(
-                  controller: feedBackUserNameController,
+                  controller: widget.feedBackUserNameController,
                   decoration: const InputDecoration(
                     labelText: 'Give your name ',
                     contentPadding: EdgeInsets.all(8),
@@ -70,7 +82,7 @@ class feedbackQrWidget extends StatelessWidget {
               SizedBox(
                 width: 350,
                 child: TextFormField(
-                  controller: feedBackController,
+                  controller: widget.feedBackController,
                   decoration: const InputDecoration(
                     labelText: 'Leave your feedback here',
                     contentPadding: EdgeInsets.all(8),
@@ -85,14 +97,15 @@ class feedbackQrWidget extends StatelessWidget {
                 height: 30,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.80,
+                width: MediaQuery.of(context).size.width * 0.70,
                 height: 64,
                 child: ElevatedButton(
                   onPressed: () {
                     addFeedbackToDatabase(
-                      userNameController.text,
-                      feedBackController.text,
+                      widget.feedBackUserNameController.text,
+                      widget.feedBackController.text,
                     );
+                    _handlePress();
                     showToast("Feedback Sent");
                   },
                   style: ElevatedButton.styleFrom(

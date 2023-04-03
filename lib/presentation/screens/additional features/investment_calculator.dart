@@ -39,6 +39,10 @@ class _InvestmentCalculatorState extends State<InvestmentCalculator> {
               min: 1000,
               max: 1000000,
               divisions: 50,
+              overlayColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 0, 0, 0)),
+              activeColor: const Color.fromARGB(255, 255, 66, 66),
+              inactiveColor: const Color.fromARGB(255, 255, 66, 66),
               label: _principal.round().toString(),
               onChanged: (double value) {
                 setState(() {
@@ -54,8 +58,12 @@ class _InvestmentCalculatorState extends State<InvestmentCalculator> {
             Slider(
               value: _rate,
               min: 1,
-              max: 10,
+              max: 20,
               divisions: 90,
+              overlayColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 0, 0, 0)),
+              activeColor: const Color.fromARGB(255, 255, 66, 66),
+              inactiveColor: const Color.fromARGB(255, 255, 66, 66),
               label: _rate.round().toString(),
               onChanged: (double value) {
                 setState(() {
@@ -72,6 +80,11 @@ class _InvestmentCalculatorState extends State<InvestmentCalculator> {
               value: _years.toDouble(),
               min: 1,
               max: 10,
+              overlayColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 0, 0, 0)),
+              // thumbColor: Colors.grey,
+              activeColor: const Color.fromARGB(255, 255, 66, 66),
+              inactiveColor: const Color.fromARGB(255, 255, 66, 66),
               divisions: 9,
               label: _years.toString(),
               onChanged: (double value) {
@@ -83,7 +96,10 @@ class _InvestmentCalculatorState extends State<InvestmentCalculator> {
             const SizedBox(height: 40),
             Text(
               'Total Amount: Rs.${calculateTotal(_principal, _rate, _years).toStringAsFixed(3)}',
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
