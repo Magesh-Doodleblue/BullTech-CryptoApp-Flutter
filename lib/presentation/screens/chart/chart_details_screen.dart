@@ -196,7 +196,7 @@ class _SelectCoinState extends State<SelectCoin> {
                             height: myHeight * 0.01,
                           ),
                           Text(
-                            '\$${widget.selectItem.totalVolume}M',
+                            '\$${widget.selectItem.totalVolume.toStringAsFixed(2).toString()}M',
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.normal,

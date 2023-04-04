@@ -150,6 +150,49 @@ class _HomePageState extends State<HomePage> {
             )
           : Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                      ),
+                      color: Color.fromARGB(255, 255, 119, 119),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(
+                        children: [
+                          const Text(
+                            "Welcome to Bull",
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Positioned(
+                            top: 100,
+                            child: Image.asset(
+                              "assets/bitcoinsvg.png",
+                            ),
+                          ),
+                          Positioned(
+                            left: 100,
+                            child: Image.asset(
+                              "assets/tethersvg.png",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 const Padding(
                   padding: EdgeInsets.only(left: 18.0),
                   child: Align(
@@ -158,9 +201,13 @@ class _HomePageState extends State<HomePage> {
                       "Trending Coins",
                       style: TextStyle(
                         fontSize: 22,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -369,117 +416,114 @@ class Item2 extends StatelessWidget {
     double myHeight = MediaQuery.of(context).size.height;
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: myWidth * 0.01, vertical: myHeight * 0.02),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (contest) => SelectCoin(
-                  selectItem: item,
-                ),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (contest) => SelectCoin(
+                selectItem: item,
               ),
-            );
-          },
-          child: Container(
-            padding: EdgeInsets.only(
-              left: myWidth * 0.03,
-              right: myWidth * 0.06,
-              top: myHeight * 0.02,
-              bottom: myHeight * 0.02,
             ),
-            height: 136,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 66,
-                      height: 66,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          // color: Colors.white,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Hero(
-                          tag: item.image,
-                          child: Image.network(
-                            item.image,
-                          ),
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.only(
+            left: myWidth * 0.03,
+            right: myWidth * 0.06,
+            top: myHeight * 0.02,
+            bottom: myHeight * 0.02,
+          ),
+          height: 104,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 66,
+                    height: 66,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        // color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Hero(
+                        tag: item.image,
+                        child: Image.network(
+                          item.image,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: myHeight * 0.08,
-                      width: myWidth * 0.03,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          item.name,
-                          style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          item.symbol,
-                          style: const TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: myHeight * 0.01,
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              '\$${item.currentPrice}'.toString(),
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              item.priceChange24H.toString().contains('-')
-                                  ? "-\$${item.priceChange24H.toStringAsFixed(2).toString().replaceAll('-', '')}"
-                                  : "\$" +
-                                      item.priceChange24H.toStringAsFixed(2),
-                              style: const TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.grey),
-                            ),
-                            SizedBox(
-                              width: myWidth * 0.03,
-                            ),
-                            Text(
-                              item.marketCapChangePercentage24H
-                                      .toStringAsFixed(2) +
-                                  '%',
-                              style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.normal,
-                                  color: item.marketCapChangePercentage24H >= 0
-                                      ? Colors.green
-                                      : Colors.red),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  SizedBox(
+                    height: myHeight * 0.08,
+                    width: myWidth * 0.03,
+                  ),
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.name,
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        item.symbol,
+                        style: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: myHeight * 0.01,
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            '\$${item.currentPrice}'.toString(),
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            item.priceChange24H.toString().contains('-')
+                                ? "-\$${item.priceChange24H.toStringAsFixed(2).toString().replaceAll('-', '')}"
+                                : "\$" + item.priceChange24H.toStringAsFixed(2),
+                            style: const TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            width: myWidth * 0.03,
+                          ),
+                          // Text(
+                          //   item.marketCapChangePercentage24H
+                          //           .toStringAsFixed(2) +
+                          //       '%',
+                          //   style: TextStyle(
+                          //       fontSize: 19,
+                          //       fontWeight: FontWeight.normal,
+                          //       color: item.marketCapChangePercentage24H >= 0
+                          //           ? Colors.green
+                          //           : Colors.red),
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
