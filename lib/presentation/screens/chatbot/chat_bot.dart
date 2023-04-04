@@ -84,11 +84,10 @@ class _ChatScreensState extends State<ChatScreens> {
                   message: message.message,
                   isUserMessage: message.isUserMessage,
                   backgroundColor: message.isUserMessage
-                      ? const Color.fromARGB(255, 244, 215, 173)
-                      : Colors.black,
-                  textColor: message.isUserMessage
-                      ? const Color.fromARGB(255, 11, 11, 11)
-                      : Colors.white,
+                      ? const Color.fromARGB(255, 255, 119, 119)
+                      : const Color.fromARGB(255, 201, 201, 201),
+                  textColor:
+                      message.isUserMessage ? Colors.white : Colors.black,
                 );
               },
             ),

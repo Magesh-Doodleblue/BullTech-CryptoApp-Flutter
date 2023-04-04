@@ -28,9 +28,25 @@ class myProfileWidget extends StatelessWidget {
             Stack(
               children: [
                 profilePicLink.isNotEmpty
-                    ? CircleAvatar(
-                        backgroundImage: NetworkImage(profilePicLink),
-                        radius: 70,
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RetrieveDataFromFirestore(),
+                            ),
+                          );
+                        },
+                        child: CircleAvatar(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 119, 119),
+                          radius: 74,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(profilePicLink),
+                            radius: 70,
+                          ),
+                        ),
                       )
                     : const Center(
                         child: CircleAvatar(
@@ -88,17 +104,33 @@ class myProfileWidget extends StatelessWidget {
               enabled: false,
               decoration: const InputDecoration(),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(
+              height: 46,
+            ),
             Center(
-              child: OutlinedButton(
-                child: const Text('Edit Profile'),
-                onPressed: () {
-                  Navigator.push(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                height: 54,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const RetrieveDataFromFirestore(),
-                      ),);
-                },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 255, 66, 66),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: const Text(
+                    'Edit Profile',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ],

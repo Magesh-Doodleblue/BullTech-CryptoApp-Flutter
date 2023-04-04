@@ -167,11 +167,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                 obscureText
                                     ? Icons.visibility_off
                                     : Icons.visibility,
+                                color: obscureText
+                                    ? Colors.black
+                                    : const Color.fromARGB(255, 255, 66, 66),
                               ),
                               onPressed: () {
-                                setState(() {
-                                  obscureText = !obscureText;
-                                });
+                                setState(
+                                  () {
+                                    obscureText = !obscureText;
+                                  },
+                                );
                               },
                             ),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -207,11 +212,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                 passobscureText
                                     ? Icons.visibility_off
                                     : Icons.visibility,
+                                color: passobscureText
+                                    ? Colors.black
+                                    : const Color.fromARGB(255, 255, 66, 66),
                               ),
                               onPressed: () {
-                                setState(() {
-                                  passobscureText = !passobscureText;
-                                });
+                                setState(
+                                  () {
+                                    passobscureText = !passobscureText;
+                                  },
+                                );
                               },
                             ),
                             border: InputBorder.none,
@@ -245,43 +255,70 @@ class _SignupScreenState extends State<SignupScreen> {
                             style: TextStyle(color: Colors.black),
                           ),
                           TextButton(
-                              onPressed: () {
-                                debugPrint('Login button clicked');
-                                Navigator.pop(context);
-                              },
-                              child: const Text("Login via Account")),
+                            onPressed: () {
+                              debugPrint('Login button clicked');
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Login via Account",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 255, 66, 66),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      MaterialButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState?.save();
-                            debugPrint('Signup button clicked');
-                            userRegister(
-                              context,
-                              emailController.text,
-                              passwordController.text,
-                              phoneNumberController.text,
-                              userNameController.text,
-                            );
-                          }
-                        },
-                        color: Colors.black,
-                        child: const SizedBox(
-                          width: 120,
-                          height: 60,
-                          child: Center(
-                            child: Text(
-                              'Signup',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 54,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState?.save();
+                              debugPrint('Signup button clicked');
+                              userRegister(
+                                context,
+                                emailController.text,
+                                passwordController.text,
+                                phoneNumberController.text,
+                                userNameController.text,
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 66, 66),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
+                          ),
+                          child: const Text(
+                            'Signup',
+                            style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      // MaterialButton(
+
+                      //   color: Colors.black,
+                      //   child: const SizedBox(
+                      //     width: 120,
+                      //     height: 60,
+                      //     child: Center(
+                      //       child: Text(
+                      //         'Signup',
+                      //         style:
+                      //             TextStyle(fontSize: 24, color: Colors.white),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

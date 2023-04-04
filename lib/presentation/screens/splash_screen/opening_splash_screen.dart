@@ -24,33 +24,39 @@ class _SplashState extends State<Splash> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              //
+              //
               Lottie.asset(
                 'assets/growth.json',
                 repeat: true,
-                width: 300,
-                height: 300,
+                width: MediaQuery.of(context).size.width * 0.94,
+                height: MediaQuery.of(context).size.height * 0.4,
                 reverse: true,
                 animate: true,
               ),
               //
               //
               Column(
-                children: const [
-                  Text(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
                     'The Future',
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 44,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Align(
-                    alignment: Alignment.center,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 23.0),
                     child: Text(
-                      'Learn more about cryptocurrency, look to \nthe future in BULL CURRENCY',
+                      'Learn more about cryptocurrency, look to the future in BULL CURRENCY',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.normal,
-                          color: Colors.grey),
+                          color: Colors.grey[500]),
                     ),
                   ),
                 ],
@@ -66,7 +72,7 @@ class _SplashState extends State<Splash> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: const Color(0xffFBC700),
+                        color: const Color.fromARGB(255, 255, 66, 66),
                         borderRadius: BorderRadius.circular(50)),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -80,11 +86,18 @@ class _SplashState extends State<Splash> {
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.normal,
+                              color: Colors.white,
                             ),
+                          ),
+                          SizedBox(
+                            width: 7,
                           ),
                           RotationTransition(
                             turns: AlwaysStoppedAnimation(310 / 360),
-                            child: Icon(Icons.arrow_forward_rounded),
+                            child: Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),

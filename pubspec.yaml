@@ -68,6 +68,9 @@ dependencies:
   flutter_zoom_drawer: ^3.0.3
   qr_flutter: ^4.0.0
   lottie: ^2.2.0
+  # flutter_localizations:
+  #   sdk: flutter
+  # intl:
   
 
 dev_dependencies:

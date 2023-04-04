@@ -127,8 +127,12 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
             children: [
               profilePicLink.isNotEmpty
                   ? CircleAvatar(
-                      backgroundImage: NetworkImage(profilePicLink),
-                      radius: 70,
+                      backgroundColor: const Color.fromARGB(255, 255, 119, 119),
+                      radius: 74,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(profilePicLink),
+                        radius: 70,
+                      ),
                     )
                   : const CircleAvatar(
                       backgroundImage: NetworkImage(
@@ -141,12 +145,12 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
                 bottom: 0,
                 child: InkWell(
                   child: CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    radius: 15,
+                    backgroundColor: Color.fromARGB(255, 255, 119, 119),
+                    radius: 22,
                     child: Icon(
-                      Icons.edit,
+                      Icons.photo,
                       size: 18,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -195,26 +199,37 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
         const SizedBox(
           height: 30,
         ),
-        SizedBox(
-          width: 200,
-          height: 50,
-          child: OutlinedButton(
-            onPressed: () async {
-              await collectionReference.doc('UserSignInDetails').update(
-                {
-                  'User_Email': userEmail,
-                  'User_Name': userName,
-                  'user_phone': userPhone,
-                },
-              );
-              // Show a Toast with the message
-              Fluttertoast.showToast(
-                msg: "Data Successfully Updated",
-                gravity: ToastGravity.BOTTOM,
-                toastLength: Toast.LENGTH_SHORT,
-              );
-            },
-            child: const Text('Save Info'),
+        Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () async {
+                await collectionReference.doc('UserSignInDetails').update(
+                  {
+                    'User_Email': userEmail,
+                    'User_Name': userName,
+                    'user_phone': userPhone,
+                  },
+                );
+                // Show a Toast with the message
+                Fluttertoast.showToast(
+                  msg: "Data Successfully Updated",
+                  gravity: ToastGravity.BOTTOM,
+                  toastLength: Toast.LENGTH_SHORT,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 255, 66, 66),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              child: const Text(
+                'Save Info',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
           ),
         ),
       ],

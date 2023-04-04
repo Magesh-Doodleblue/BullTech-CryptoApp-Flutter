@@ -37,10 +37,17 @@ class _AccountPageState extends State<AccountPage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+            color: Color.fromARGB(255, 255, 119, 119),
+          ),
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: collectionReference.doc('UserSignInDetails').snapshots(),
@@ -66,13 +73,16 @@ class _AccountPageState extends State<AccountPage> {
           userName = snapshot.data!.get('User_Name');
           userPhone = snapshot.data!.get('user_phone');
 
-          return myProfileWidget(profilePicLink: profilePicLink, userName: userName, userEmail: userEmail, userPhone: userPhone);
+          return myProfileWidget(
+              profilePicLink: profilePicLink,
+              userName: userName,
+              userEmail: userEmail,
+              userPhone: userPhone);
         },
       ),
     );
   }
 }
-
 
 void updateUser(
     {required String id,

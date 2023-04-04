@@ -8,7 +8,8 @@ class ChatInput extends StatefulWidget {
   final ValueChanged<String> onSubmitted;
   final List<ChatMessage> messages;
 
-  const ChatInput({required this.onSubmitted, required this.messages});
+  const ChatInput(
+      {super.key, required this.onSubmitted, required this.messages});
 
   @override
   _ChatInputState createState() => _ChatInputState();
@@ -29,11 +30,14 @@ class _ChatInputState extends State<ChatInput> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _textController,
-              onSubmitted: _handleSubmitted,
-              decoration: const InputDecoration(
-                hintText: 'Type a message',
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: TextField(
+                controller: _textController,
+                onSubmitted: _handleSubmitted,
+                decoration: const InputDecoration(
+                  hintText: 'Type a message',
+                ),
               ),
             ),
           ),

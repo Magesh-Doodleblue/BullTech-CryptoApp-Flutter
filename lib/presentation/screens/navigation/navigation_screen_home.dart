@@ -5,7 +5,6 @@ import '../newspaper/newspaper_screen.dart';
 import 'homepage_screen.dart';
 import 'wishlist_screen.dart';
 
-
 class NavigationButton extends StatefulWidget {
   const NavigationButton({super.key});
 
@@ -14,7 +13,6 @@ class NavigationButton extends StatefulWidget {
 }
 
 class _NavigationButtonState extends State<NavigationButton> {
-  @override
   int pageIndex = 0;
   List<Widget> bodybar = [
     const HomePage(),
@@ -40,11 +38,11 @@ class _NavigationButtonState extends State<NavigationButton> {
           NavigationDestination(
             selectedIcon: Icon(
               Icons.home,
-              color: Colors.white,
+              color: Color.fromARGB(255, 255, 119, 119),
             ),
             icon: Icon(
               Icons.home,
-              color: Colors.grey,
+              color: Colors.black,
             ),
             label: 'Home',
           ),
@@ -52,33 +50,33 @@ class _NavigationButtonState extends State<NavigationButton> {
             selectedIcon: Icon(
               Icons.abc_outlined,
               // Image.asset("assets/wishlist.png"),
-              color: Colors.white,
+              color: Color.fromARGB(255, 255, 119, 119),
             ),
             icon: Icon(
               Icons.data_exploration,
-              color: Colors.grey,
+              color: Colors.black,
             ),
             label: 'Wish',
           ),
           NavigationDestination(
             selectedIcon: Icon(
               Icons.newspaper,
-              color: Colors.white,
+              color: Color.fromARGB(255, 255, 119, 119),
             ),
             icon: Icon(
               Icons.newspaper,
-              color: Colors.grey,
+              color: Colors.black,
             ),
             label: 'News',
           ),
           NavigationDestination(
             selectedIcon: Icon(
               Icons.person,
-              color: Colors.white,
+              color: Color.fromARGB(255, 255, 119, 119),
             ),
             icon: Icon(
               Icons.person,
-              color: Colors.grey,
+              color: Colors.black,
             ),
             label: 'You',
           ),

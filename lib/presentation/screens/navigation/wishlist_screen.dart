@@ -25,7 +25,13 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wishlist'),
+        title: const Text(
+          'Wishlist',
+          style: TextStyle(
+            color: Color.fromARGB(255, 255, 66, 66),
+          ),
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: wishlistWidget(coins: _coins),
       floatingActionButton: FloatingActionButton(
@@ -37,6 +43,7 @@ class _WishListScreenState extends State<WishListScreen> {
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
+              elevation: 20,
               content: Text('Wishlist cleared'),
             ),
           );

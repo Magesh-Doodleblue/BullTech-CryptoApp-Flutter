@@ -2,6 +2,7 @@
 
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../domain/authentication/login_authentication.dart';
@@ -57,12 +58,14 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                     ),
                     const Hero(
                       tag: "createaccount",
-                      child: Text(
-                        'WELCOME',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Color.fromARGB(255, 255, 66, 66),
-                          fontWeight: FontWeight.bold,
+                      child: Center(
+                        child: Text(
+                          'WELCOME',
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Color.fromARGB(255, 255, 66, 66),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -70,6 +73,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                       height: 45,
                     ),
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(8),
@@ -95,6 +99,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                       height: 30,
                     ),
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(8),
@@ -121,6 +126,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                       height: 30,
                     ),
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(8),
@@ -140,6 +146,9 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                               _obscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
+                              color: _obscureText
+                                  ? Colors.black
+                                  : const Color.fromARGB(255, 255, 66, 66),
                             ),
                             onPressed: () {
                               setState(() {
@@ -147,7 +156,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                               });
                             },
                           ),
-                          prefixIcon: const Icon(Icons.password_rounded),
+                          prefixIcon: const Icon(Icons.lock_outline),
                           border: InputBorder.none,
                           labelText: "Password",
                           hintText: "Type Password",
@@ -187,7 +196,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 200,
+                          width: MediaQuery.of(context).size.width * 0.8,
                           height: 54,
                           child: ElevatedButton(
                             onPressed: () async {
@@ -196,7 +205,13 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                               prefs.setBool('isLoggedIn', true);
                               if (_formKey.currentState!.validate()) {
                                 debugPrint('Login button clicked');
-                                // showLoadingDialog(context);
+                                //
+                                Fluttertoast.showToast(
+                                  msg: "Login Success",
+                                  gravity: ToastGravity.BOTTOM,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                );
+                                //
                                 signin(
                                     context,
                                     emailController.text,

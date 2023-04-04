@@ -18,7 +18,6 @@ import '../../../data/models/coinModel.dart';
 import '../additional features/currency_converter.dart';
 import '../additional features/investment_calculator.dart';
 import '../additional features/qr_code.dart';
-import '../authentication/login_screen.dart';
 import '../chart/chart_details_screen.dart';
 import '../chatbot/chat_bot.dart';
 
@@ -106,10 +105,17 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () => _onWillPop(),
       child: ZoomDrawer(
         controller: _drawerController,
-        menuScreen: MenuScreen(controller: _drawerController),
+        menuScreen: MenuScreen(
+          controller: _drawerController,
+        ),
         mainScreen: Scaffold(
           appBar: AppBar(
-            title: const Text('BULL CURRENCY'),
+            title: const Text(
+              'BULL CURRENCY',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
             leading: IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
@@ -174,9 +180,6 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          // Image.asset(
-                          //   "assets/tethersvg.png",
-                          // ),
                         ],
                       ),
                     ),
@@ -253,12 +256,18 @@ class _HomePageState extends State<HomePage> {
 class MenuScreen extends StatelessWidget {
   final ZoomDrawerController controller;
 
-  const MenuScreen({Key? key, required this.controller}) : super(key: key);
+  const MenuScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 60.0, left: 24.0),
+      padding: const EdgeInsets.only(
+        top: 60.0,
+        left: 24.0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -272,7 +281,9 @@ class MenuScreen extends StatelessWidget {
                     color: Colors.black),
               ),
               Spacer(),
-              Icon(Icons.double_arrow_outlined)
+              Icon(
+                Icons.double_arrow_outlined,
+              ),
             ],
           ),
           const SizedBox(height: 6.0),
@@ -350,6 +361,7 @@ class MenuScreen extends StatelessWidget {
               );
             },
             child: const Text(
+              // AppLocalizations.of(context)!.support,
               'Support',
               style: TextStyle(
                   fontSize: 20,
@@ -374,9 +386,6 @@ class MenuScreen extends StatelessWidget {
                     prefs.setBool('isLoggedIn', false);
                     Navigator.pop(
                       context,
-                      MaterialPageRoute(
-                        builder: ((context) => const LoginScreenPage()),
-                      ),
                     );
                   },
                   child: const Text(

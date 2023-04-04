@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: const Locale("es", ''),
       theme: ThemeData(
         useMaterial3: true,
         // brightness:  Brightness.dark: Brightness.light,

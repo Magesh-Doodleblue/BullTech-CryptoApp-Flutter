@@ -70,7 +70,12 @@ class _NewsScreenState extends State<NewsScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('NEWS SECTION'),
+        title: const Text(
+          'NEWS SECTION',
+          style: TextStyle(
+            color: Color.fromARGB(255, 255, 66, 66),
+          ),
+        ),
       ),
       body: newspaperWidget(),
     );
