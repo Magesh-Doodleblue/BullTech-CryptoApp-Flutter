@@ -95,11 +95,12 @@ class _NewsScreenState extends State<NewsScreen> {
                         print('REDIRECTING');
                       }
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NewsDetailsScreen(news: newsData),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NewsDetailsScreen(news: newsData),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 18),

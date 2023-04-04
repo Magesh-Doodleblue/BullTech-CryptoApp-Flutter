@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(18.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 200,
+                    // height: 170,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -162,29 +162,21 @@ class _HomePageState extends State<HomePage> {
                       color: Color.fromARGB(255, 255, 119, 119),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(
-                        children: [
-                          const Text(
-                            "Welcome to Bull",
+                      padding: const EdgeInsets.all(18.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Welcome to name",
                             style: TextStyle(
                               fontSize: 22,
                               color: Colors.white,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Positioned(
-                            top: 100,
-                            child: Image.asset(
-                              "assets/bitcoinsvg.png",
-                            ),
-                          ),
-                          Positioned(
-                            left: 100,
-                            child: Image.asset(
-                              "assets/tethersvg.png",
-                            ),
-                          ),
+                          // Image.asset(
+                          //   "assets/tethersvg.png",
+                          // ),
                         ],
                       ),
                     ),

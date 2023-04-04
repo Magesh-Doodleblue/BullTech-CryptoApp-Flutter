@@ -2,8 +2,9 @@
 
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../widgets/login_screen_widget.dart';
+import '../../../domain/authentication/login_authentication.dart';
 
 class LoginScreenPage extends StatefulWidget {
   const LoginScreenPage({Key? key}) : super(key: key);
@@ -13,18 +14,219 @@ class LoginScreenPage extends StatefulWidget {
 }
 
 class _LoginScreenPageState extends State<LoginScreenPage> {
-  // bool isLoggedIn = false;
+  //
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+          color: const Color.fromARGB(255, 255, 66, 66),
+        ),
         title: const Text(
           'BULL CURRENCY',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: Color.fromARGB(255, 255, 66, 66),
+          ),
         ),
       ),
-      body: loginWidget(context),
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          Image.asset("assets/rect.png"),
+          ListView(children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    const Hero(
+                      tag: "createaccount",
+                      child: Text(
+                        'WELCOME',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Color.fromARGB(255, 255, 66, 66),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 45,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 8,
+                      ),
+                      child: TextFormField(
+                        controller: userNameController,
+                        cursorColor: const Color.fromARGB(255, 255, 66, 66),
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.person_pin),
+                            border: InputBorder.none,
+                            labelText: "Name",
+                            hintText: "Type your name"),
+                        validator: loginUserNameValidation,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 8,
+                      ),
+                      child: TextFormField(
+                        controller: emailController,
+                        cursorColor: const Color.fromARGB(255, 255, 66, 66),
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.mail_outline),
+                          border: InputBorder.none,
+                          labelText: "Email ID",
+                          hintText: "Type Email ID",
+                        ),
+                        validator: loginEmailValidation,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 8,
+                      ),
+                      child: TextFormField(
+                        controller: passwordController,
+                        keyboardType: TextInputType.name,
+                        obscureText: _obscureText,
+                        cursorColor: const Color.fromARGB(255, 255, 66, 66),
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                          ),
+                          prefixIcon: const Icon(Icons.password_rounded),
+                          border: InputBorder.none,
+                          labelText: "Password",
+                          hintText: "Type Password",
+                        ),
+                        validator: loginPassValidation,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Didnt have an account! ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            debugPrint('Signup button clicked');
+                            Navigator.pushNamed(context, "/signup");
+                          },
+                          child: const Text(
+                            "Create Account",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 255, 66, 66),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          height: 54,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setBool('isLoggedIn', true);
+                              if (_formKey.currentState!.validate()) {
+                                debugPrint('Login button clicked');
+                                // showLoadingDialog(context);
+                                signin(
+                                    context,
+                                    emailController.text,
+                                    passwordController.text,
+                                    userNameController.text);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 255, 66, 66),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: const Text(
+                              'Login',
+                              style:
+                                  TextStyle(fontSize: 24, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ])
+        ],
+      ),
     );
   }
 }
