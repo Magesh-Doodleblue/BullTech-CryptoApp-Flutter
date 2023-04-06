@@ -1,0 +1,28 @@
+{
+  "name": "",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "b19ac67070bc44e310990016288e449c",
+      "css": "heart",
+      "code": 59392,
+      "src": "linecons"
+    },
+    {
+      "uid": "e9f1a4a3968111eab72aacfdce5a3d9f",
+      "css": "home",
+      "code": 62303,
+      "src": "octicons"
+    },
+    {
+      "uid": "032bd8bbd70adf90ead98b6813bfe446",
+      "css": "newspaper",
+      "code": 61930,
+      "src": "fontawesome"
+    }
+  ]
+}

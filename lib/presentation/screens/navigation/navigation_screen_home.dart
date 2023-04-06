@@ -48,12 +48,12 @@ class _NavigationButtonState extends State<NavigationButton> {
           ),
           NavigationDestination(
             selectedIcon: Icon(
-              Icons.abc_outlined,
+              Icons.list_alt,
               // Image.asset("assets/wishlist.png"),
               color: Color.fromARGB(255, 255, 119, 119),
             ),
             icon: Icon(
-              Icons.data_exploration,
+              Icons.list_alt,
               color: Colors.black,
             ),
             label: 'Wish',

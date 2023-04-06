@@ -128,16 +128,20 @@ class _RetrieveDataFromFirestoreState extends State<RetrieveDataFromFirestore> {
               profilePicLink.isNotEmpty
                   ? CircleAvatar(
                       backgroundColor: const Color.fromARGB(255, 255, 119, 119),
-                      radius: 74,
+                      radius: 93,
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(profilePicLink),
-                        radius: 70,
+                        radius: 90,
                       ),
                     )
                   : const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
-                      radius: 70.0,
+                      backgroundColor: Color.fromARGB(255, 255, 119, 119),
+                      radius: 93,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
+                        radius: 90,
+                      ),
                     ),
               const Positioned(
                 right: 0,

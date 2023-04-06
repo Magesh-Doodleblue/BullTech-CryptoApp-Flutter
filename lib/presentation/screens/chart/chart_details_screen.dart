@@ -53,7 +53,7 @@ class _SelectCoinState extends State<SelectCoin> {
   SizedBox chartDetailsWidget(
       double myHeight, double myWidth, BuildContext context) {
     return SizedBox(
-      height: myHeight,
+      height: myHeight * 0.92,
       width: myWidth,
       child: Column(
         children: [
@@ -72,19 +72,25 @@ class _SelectCoinState extends State<SelectCoin> {
                           child: Image.network(widget.selectItem.image)),
                     ),
                     SizedBox(
-                      width: myWidth * 0.03,
+                      width: myWidth * 0.04,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.selectItem.name,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        FittedBox(
+                          child: SelectableText(
+                            widget.selectItem.name,
+                            style: TextStyle(
+                                fontSize: widget.selectItem.name ==
+                                        "Lido Staked Ether"
+                                    ? 18
+                                    : 23,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        SizedBox(
-                          height: myHeight * 0.01,
-                        ),
+                        // SizedBox(
+                        //   height: myHeight * 0.01,
+                        // ),
                         Text(
                           widget.selectItem.symbol,
                           style: const TextStyle(
@@ -103,7 +109,7 @@ class _SelectCoinState extends State<SelectCoin> {
                       Text(
                         '\$${widget.selectItem.currentPrice}',
                         style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 24,
                             fontWeight: FontWeight.normal,
                             color: Colors.black),
                       ),
@@ -195,12 +201,14 @@ class _SelectCoinState extends State<SelectCoin> {
                           SizedBox(
                             height: myHeight * 0.01,
                           ),
-                          Text(
-                            '\$${widget.selectItem.totalVolume.toStringAsFixed(2).toString()}M',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
+                          FittedBox(
+                            child: Text(
+                              '\$${widget.selectItem.totalVolume.toStringAsFixed(2).toString()}M',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ],
@@ -331,7 +339,7 @@ class _SelectCoinState extends State<SelectCoin> {
                   ),
                 ),
                 SizedBox(
-                  height: myHeight * 0.04,
+                  height: myHeight * 0.01,
                 ),
                 const Divider(),
                 Row(

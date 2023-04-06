@@ -4,11 +4,9 @@ import 'dart:convert';
 
 import 'package:bulltech/presentation/screens/additional%20features/currency_converter.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../data/models/chart_model.dart';
-import '../../../data/models/wishlist_singleton.dart';
 import '../additional features/investment_calculator.dart';
 
 class WishSelectCoin extends StatefulWidget {
@@ -339,59 +337,59 @@ class _WishSelectCoinState extends State<WishSelectCoin> {
                     SizedBox(
                       width: myWidth * 0.02,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.55,
-                      height: 48,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Wishlist.instance.addCoin(
-                            widget.wishedItemDetails.name,
-                          );
-                          Fluttertoast.showToast(
-                            msg:
-                                '${widget.wishedItemDetails.name} added to wishlist',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.black,
-                            textColor: Colors.white,
-                            fontSize: 16.0,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 255, 66, 66),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              16,
-                            ),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              size: myHeight * 0.035,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              'Add to WishList',
-                              style: TextStyle(
-                                // fontSize: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: myWidth * 0.02,
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width * 0.55,
+                    //   height: 48,
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       Wishlist.instance.addCoin(
+                    //         widget.wishedItemDetails.name,
+                    //       );
+                    //       Fluttertoast.showToast(
+                    //         msg:
+                    //             '${widget.wishedItemDetails.name} added to wishlist',
+                    //         toastLength: Toast.LENGTH_SHORT,
+                    //         gravity: ToastGravity.BOTTOM,
+                    //         timeInSecForIosWeb: 1,
+                    //         backgroundColor: Colors.black,
+                    //         textColor: Colors.white,
+                    //         fontSize: 16.0,
+                    //       );
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor:
+                    //           const Color.fromARGB(255, 255, 66, 66),
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(
+                    //           16,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         Icon(
+                    //           Icons.add,
+                    //           size: myHeight * 0.035,
+                    //           color: Colors.white,
+                    //         ),
+                    //         const SizedBox(
+                    //           width: 5,
+                    //         ),
+                    //         const Text(
+                    //           'Add to WishList',
+                    //           style: TextStyle(
+                    //             // fontSize: 20,
+                    //             color: Colors.white,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   width: myWidth * 0.02,
+                    // ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.34,
                       height: 48,
@@ -423,13 +421,6 @@ class _WishSelectCoinState extends State<WishSelectCoin> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: myHeight * 0.02,
-                ),
-                Row(
-                  children: [
                     SizedBox(
                       width: myWidth * 0.02,
                     ),
@@ -463,9 +454,9 @@ class _WishSelectCoinState extends State<WishSelectCoin> {
                           ),
                         ),
                       ),
-                    ),
+                    )
                   ],
-                )
+                ),
               ],
             ),
           ),

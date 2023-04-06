@@ -41,18 +41,31 @@ class myProfileWidget extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor:
                               const Color.fromARGB(255, 255, 119, 119),
-                          radius: 74,
+                          radius: 68,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(profilePicLink),
-                            radius: 70,
+                            radius: 65,
                           ),
                         ),
                       )
-                    : const Center(
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
-                          radius: 70,
+                    : GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RetrieveDataFromFirestore(),
+                            ),
+                          );
+                        },
+                        child: const CircleAvatar(
+                          backgroundColor: Color.fromARGB(255, 255, 119, 119),
+                          radius: 68,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                "https://cdn.dribbble.com/users/822638/screenshots/3877282/media/be71a9905fd107b636982b0acf051d6f.jpg?compress=1&resize=400x300&vertical=top"),
+                            radius: 65,
+                          ),
                         ),
                       ),
               ],
