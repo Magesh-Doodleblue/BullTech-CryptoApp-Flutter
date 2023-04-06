@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/authentication/signin_authentication.dart';
+import 'new_signup_screen.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+  // const SignupScreen({super.key});
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -19,6 +21,16 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
   bool obscureText = true;
   bool passobscureText = true;
+  @override
+  void dispose() {
+    userNameController.dispose();
+    passwordController.dispose();
+    phoneNumberController.dispose();
+    confirmPasswordController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -38,17 +50,13 @@ class _SignupScreenState extends State<SignupScreen> {
           color: const Color.fromARGB(255, 255, 66, 66),
         ),
       ),
+      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Image.asset("assets/rect.png"),
-          // signinWidget(
-          //   formKey: formKey,
-          //   emailController: emailController,
-          //   userNameController: userNameController,
-          //   phoneNumberController: phoneNumberController,
-          //   passwordController: passwordController,
-          //   confirmPasswordController: confirmPasswordController,
-          // ),
+          Image.asset(
+            "assets/rect.png",
+            // height: 600,
+          ),
           ListView(
             children: [
               Padding(
@@ -65,6 +73,17 @@ class _SignupScreenState extends State<SignupScreen> {
                           color: Color.fromARGB(255, 255, 66, 66),
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NewSignupScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text("data"),
                       ),
                       const SizedBox(
                         height: 30,
@@ -84,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           keyboardType: TextInputType.name,
                           decoration: const InputDecoration(
                             prefixIcon: Icon(Icons.mail_outline),
-                            border: InputBorder.none,
+                            // border: InputBorder.none,
                             labelText: "Email ID",
                             hintText: "Type Email ID",
                           ),
@@ -111,7 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           keyboardType: TextInputType.name,
                           decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.person_pin),
-                              border: InputBorder.none,
+                              // border: InputBorder.none,
                               labelText: "Name",
                               hintText: "Type your name"),
                           validator: signinUserNameValidation,
@@ -136,7 +155,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           cursorColor: const Color.fromARGB(255, 255, 66, 66),
                           decoration: const InputDecoration(
                             prefixIcon: Icon(Icons.phone),
-                            border: InputBorder.none,
+                            // border: InputBorder.none,
                             labelText: "Phone",
                             hintText: "Give Phone number",
                           ),
@@ -180,7 +199,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               },
                             ),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
-                            border: InputBorder.none,
+                            // border: InputBorder.none,
                             labelText: "Password",
                             hintText: "Type Password",
                           ),
@@ -224,7 +243,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 );
                               },
                             ),
-                            border: InputBorder.none,
+                            // border: InputBorder.none,
                             labelText: " Confirm Password",
                             hintText: "Type the same Password",
                           ),

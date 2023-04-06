@@ -1,5 +1,6 @@
 // ignore_for_file: unrelated_type_equality_checks, use_build_context_synchronously
 
+import 'package:bulltech/presentation/screens/authentication/new_signup_screen.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,6 +23,15 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
+  //
+  @override
+  void dispose() {
+    userNameController.dispose();
+    passwordController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +51,12 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
           ),
         ),
       ),
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Image.asset("assets/rect.png"),
+          Image.asset(
+            "assets/rect.png",
+          ),
           ListView(children: [
             Padding(
               padding: const EdgeInsets.all(18.0),
@@ -178,7 +190,12 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                         TextButton(
                           onPressed: () {
                             debugPrint('Signup button clicked');
-                            Navigator.pushNamed(context, "/signup");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const NewSignupScreen(),
+                              ),
+                            );
                           },
                           child: const Text(
                             "Create Account",

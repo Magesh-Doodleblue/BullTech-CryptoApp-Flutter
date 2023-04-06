@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import '../../../data/models/wishlist_singleton.dart';
@@ -17,6 +17,7 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   void initState() {
     super.initState();
+
     _coins =
         Wishlist.instance.getCoins(); // get the list of coins from the Wishlist
   }
@@ -33,14 +34,13 @@ class _WishListScreenState extends State<WishListScreen> {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: wishlistWidget(coins: _coins),
+      body: WishlistWidget(coins: _coins),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Wishlist.instance.clearCoins();
           setState(() {
             _coins = Wishlist.instance.getCoins();
           });
-
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               elevation: 20,

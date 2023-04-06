@@ -15,11 +15,18 @@ class NewsScreen extends StatefulWidget {
 
 class _NewsScreenState extends State<NewsScreen> {
   List<dynamic> _newsList = [];
+  final http.Client _client = http.Client(); // Add this line
 
   @override
   void initState() {
     super.initState();
     _loadNews();
+  }
+
+  @override
+  void dispose() {
+    _client.close(); // Add this line to cancel the http request
+    super.dispose();
   }
 
   Future<void> _loadNews() async {
@@ -53,9 +60,14 @@ class _NewsScreenState extends State<NewsScreen> {
         newsList.add(newsItem);
       }
 
-      setState(() {
-        _newsList = newsList;
-      });
+      // setState(() {
+      //   _newsList = newsList;
+      // });
+      if (mounted) {
+        setState(() {
+          _newsList = newsList;
+        });
+      }
     } else {
       throw Exception('Failed to fetch news');
     }

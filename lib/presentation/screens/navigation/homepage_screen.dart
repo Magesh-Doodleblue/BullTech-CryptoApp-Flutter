@@ -127,9 +127,10 @@ class _HomePageState extends State<HomePage> {
         ),
         borderRadius: 24.0,
         showShadow: true,
-        angle: 0.0,
-        menuBackgroundColor: const Color.fromARGB(255, 250, 176, 176),
-        style: DrawerStyle.style1,
+        angle: 0,
+        // change this to achieve the changing angle of homepage while opening the menu drawer.
+        menuBackgroundColor: const Color.fromARGB(255, 185, 185, 185),
+        // style: DrawerStyle.style2,
         //change this to achieve diff styles like "style1 , style2 .. 4"
         slideWidth: MediaQuery.of(context).size.width * 0.65,
         openCurve: Curves.fastOutSlowIn,
@@ -173,7 +174,8 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Text(
-                            "Welcome to name",
+                            "Welcome to",
+                            //$name",
                             style: TextStyle(
                               fontSize: 22,
                               color: Colors.white,
@@ -435,7 +437,7 @@ class Item2 extends StatelessWidget {
             top: myHeight * 0.02,
             bottom: myHeight * 0.02,
           ),
-          height: 104,
+          height: 113,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
           ),
