@@ -42,11 +42,21 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'),
+            child: const Text(
+              'No',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes'),
+            child: const Text(
+              'Yes',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
           ),
         ],
       ),
@@ -118,6 +128,7 @@ class _HomePageState extends State<HomePage> {
             ),
             leading: IconButton(
               icon: const Icon(Icons.menu),
+              color: const Color.fromARGB(255, 255, 66, 66),
               onPressed: () {
                 _drawerController.toggle!();
               },
@@ -129,7 +140,8 @@ class _HomePageState extends State<HomePage> {
         showShadow: true,
         angle: 0,
         // change this to achieve the changing angle of homepage while opening the menu drawer.
-        menuBackgroundColor: const Color.fromARGB(255, 255, 158, 158),
+        // menuBackgroundColor: const Color.fromARGB(255, 255, 158, 158),
+        menuBackgroundColor: const Color.fromARGB(255, 0, 189, 189),
         // style: DrawerStyle.style2,
         //change this to achieve diff styles like "style1 , style2 .. 4"
         slideWidth: MediaQuery.of(context).size.width * 0.65,

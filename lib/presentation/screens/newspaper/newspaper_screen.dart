@@ -87,11 +87,21 @@ class _NewsScreenState extends State<NewsScreen> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'),
+            child: const Text(
+              'No',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes'),
+            child: const Text(
+              'Yes',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
           ),
         ],
       ),

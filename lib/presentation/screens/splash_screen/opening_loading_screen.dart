@@ -93,7 +93,7 @@ class _LoadingPageState extends State<LoadingPage> {
                     width: MediaQuery.of(context).size.width * 0.95,
                     height: 380,
                     fit: BoxFit.contain,
-                    color: const Color.fromARGB(255, 0, 0, 0),
+                    color: const Color.fromARGB(255, 255, 66, 66),
                   ),
                   const Spacer(
                     flex: 3,
@@ -116,7 +116,7 @@ class _LoadingPageState extends State<LoadingPage> {
                             'Created by BullTech Pvt LTD.',
                             style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.black,
+                                color: Color.fromARGB(255, 255, 66, 66),
                                 fontWeight: FontWeight.normal),
                           ),
                         ],

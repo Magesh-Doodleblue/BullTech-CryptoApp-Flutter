@@ -380,10 +380,14 @@ class _SelectCoinState extends State<SelectCoin> {
                                 },
                               );
                             } else {
+                              Timestamp time = Timestamp
+                                  .now(); // create a new Timestamp instance representing the current time
                               await firestore.collection('wishlist').add({
                                 'name': name,
                                 'currentPrice': widget.selectItem.currentPrice,
                                 'image': widget.selectItem.image,
+                                'time':
+                                    time, // add the time stamp to the data model
                               });
                               Fluttertoast.showToast(
                                 msg: '$name added to Wishlist',

@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, unnecessary_null_comparison
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, unnecessary_null_comparison, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -66,11 +66,21 @@ class _WishListScreenState extends State<WishListScreen> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'),
+            child: const Text(
+              'No',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes'),
+            child: const Text(
+              'Yes',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 66, 66),
+              ),
+            ),
           ),
         ],
       ),
@@ -122,17 +132,16 @@ class _WishListScreenState extends State<WishListScreen> {
         //       ),
         //     );
         //   },
+
         // ),
         body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance.collection('wishlist').snapshots(),
+          stream: firestore.collection('wishlist').orderBy("time").snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
-
             List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
                 snapshot.data!.docs;
-
             if (documents.isEmpty) {
               return Center(
                 child: SizedBox(
@@ -152,7 +161,6 @@ class _WishListScreenState extends State<WishListScreen> {
                 ),
               );
             }
-
             return ListView.builder(
               itemCount: documents.length,
               itemBuilder: (context, index) {
@@ -160,19 +168,106 @@ class _WishListScreenState extends State<WishListScreen> {
                 if (data == null) {
                   return const SizedBox();
                 }
-                return ListTile(
-                  title: Text(data['name']),
-                  subtitle: Text(data['currentPrice'].toString()),
-                  leading: Image.network(data['image']),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Dismissible(
+                    key: Key(documents[index].id),
+                    direction: DismissDirection.endToStart,
+                    confirmDismiss: (direction) async {
+                      return await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Confirm'),
+                            content: const Text(
+                                'Are you sure you wish to delete this item?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text(
+                                  'CANCEL',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 66, 66),
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: const Text(
+                                  'DELETE',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 66, 66),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    onDismissed: (direction) async {
                       String documentID = documents[index].id;
-                      FirebaseFirestore.instance
+                      await firestore
                           .collection('wishlist')
                           .doc(documentID)
                           .delete();
                     },
+                    background: Container(
+                      color: const Color.fromARGB(255, 255, 66, 66),
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: const [
+                          Text(
+                            "Release to delete",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Icon(
+                            Icons.delete_outline_sharp,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        data['name'],
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Current Price: \$${data['currentPrice'].toString()}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      leading: Image.network(
+                        data['image'],
+                        height: 90,
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete_outline_sharp),
+                        onPressed: () {
+                          String documentID = documents[index].id;
+                          FirebaseFirestore.instance
+                              .collection('wishlist')
+                              .doc(documentID)
+                              .delete();
+                        },
+                      ),
+                    ),
                   ),
                 );
               },
@@ -180,19 +275,61 @@ class _WishListScreenState extends State<WishListScreen> {
           },
         ),
 
-        // body: WishlistWidget(coins: _coins),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Wishlist.instance.clearCoins();
-            setState(() {
-              _coins = Wishlist.instance.getCoins();
-            });
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                elevation: 20,
-                content: Text('Wishlist cleared'),
-              ),
+          foregroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 255, 66, 66),
+          onPressed: () async {
+            // Show an alert dialog to confirm the user's action
+            bool confirm = await showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  // title: const Text('Clear Wishlist'),
+                  title: const Text('Clear Wishlist',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                      )),
+                  content: const Text(
+                      'Are you sure you want to clear your Wishlist?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text(
+                        'CANCEL',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 66, 66),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text(
+                        'CLEAR',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 66, 66),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
+
+            if (confirm == true) {
+              QuerySnapshot<Map<String, dynamic>> snapshot =
+                  await firestore.collection('wishlist').get();
+              List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
+                  snapshot.docs;
+              for (var document in documents) {
+                document.reference.delete();
+              }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Wishlist cleared'),
+                ),
+              );
+            }
           },
           tooltip: 'Clear wishlist',
           child: const Icon(Icons.clear),
@@ -201,33 +338,3 @@ class _WishListScreenState extends State<WishListScreen> {
     );
   }
 }
-
-//sample response from above api
-//{
-// "id": "bitcoin",
-// "symbol": "btc",
-// "name": "Bitcoin",
-// "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
-// "current_price": 28035,
-// "market_cap": 542314917536,
-// "market_cap_rank": 1,
-// "fully_diluted_valuation": 588907513262,
-// "total_volume": 14596182230,
-// "high_24h": 28609,
-// "low_24h": 27884,
-// "price_change_24h": -496.0509388735263,
-// "price_change_percentage_24h": -1.73863,
-// "market_cap_change_24h": -9197165014.045532,
-// "market_cap_change_percentage_24h": -1.66763,
-// "circulating_supply": 19338543.0,
-// "total_supply": 21000000.0,
-// "max_supply": 21000000.0,
-// "ath": 69045,
-// "ath_change_percentage": -59.35383,
-// "ath_date": "2021-11-10T14:24:11.849Z",
-// "atl": 67.81,
-// "atl_change_percentage": 41286.91317,
-// "atl_date": "2013-07-06T00:00:00.000Z",
-// "roi": null,
-// "last_updated": "2023-04-06T07:37:26.894Z",
-//}
