@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'opening_splash_screen.dart';
-import '../../widgets/opening_loading_widget.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -12,15 +10,26 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
+  // void initState() {
+  // Timer(
+  //   const Duration(seconds: 3),
+  //   () {
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => const Splash()));
+  //   },
+  // );
+  //   super.initState();
+  // }
+  final PageController _pageController = PageController();
+  double currentPage = 0;
+
   @override
   void initState() {
-    Timer(
-      const Duration(seconds: 4),
-      () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const Splash()));
-      },
-    );
+    _pageController.addListener(() {
+      setState(() {
+        currentPage = _pageController.page!;
+      });
+    });
     super.initState();
   }
 
@@ -30,9 +39,99 @@ class _LoadingPageState extends State<LoadingPage> {
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        body: loadingWidget(myHeight, myWidth),
+        // backgroundColor: const Color.fromARGB(255, 255, 216, 216),
+        body: PageView(
+          controller: _pageController,
+          children: [
+            firstPage(myHeight, myWidth),
+            secondPage(myHeight, myWidth),
+          ],
+        ),
       ),
+    );
+  }
+
+  Row secondPage(double myHeight, double myWidth) {
+    return Row(
+      children: [
+        Expanded(
+            child: splashWidgetScreen(
+          myHeight: myHeight,
+          myWidth: myWidth,
+          // currectPage: currentPage,
+        )),
+      ],
+    );
+  }
+
+  Row firstPage(double myHeight, double myWidth) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: myHeight,
+            width: myWidth,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: myHeight * 0.05),
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Text(
+                  //   currentPage.toString(),
+                  //   style: const TextStyle(
+                  //       fontSize: 40,
+                  //       color: Colors.black,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  Image.asset(
+                    "assets/bgBulltech.png",
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: 380,
+                    fit: BoxFit.contain,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  const Spacer(
+                    flex: 3,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                        // alignment: Alignment.centerRight,
+                        child: Image.asset(
+                          "assets/swipe.png",
+                          width: 170,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: const [
+                          Text(
+                            'Created by BullTech Pvt LTD.',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: myHeight * 0.030,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

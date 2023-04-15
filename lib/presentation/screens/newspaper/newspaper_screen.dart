@@ -2,12 +2,13 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 import 'news_details_screen.dart';
 
 class NewsScreen extends StatefulWidget {
-  const NewsScreen({super.key});
+  const NewsScreen({Key? key}) : super(key: key);
 
   @override
   _NewsScreenState createState() => _NewsScreenState();
@@ -77,19 +78,47 @@ class _NewsScreenState extends State<NewsScreen> {
     await _loadNews();
   }
 
+  Future<bool> _onWillPop() async {
+    bool closeApp = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit the App?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+    if (closeApp == true) {
+      SystemNavigator.pop();
+    }
+
+    return closeApp;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'NEWS SECTION',
-          style: TextStyle(
-            color: Color.fromARGB(255, 255, 66, 66),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(),
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'NEWS SECTION',
+            style: TextStyle(
+              color: Color.fromARGB(255, 255, 66, 66),
+            ),
           ),
         ),
+        body: newspaperWidget(),
       ),
-      body: newspaperWidget(),
     );
   }
 

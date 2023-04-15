@@ -28,7 +28,7 @@ class _ChatScreensState extends State<ChatScreens> {
       headers: {
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer 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',
+            'Bearer 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',
       },
       body: jsonEncode(
         {
@@ -75,6 +75,15 @@ class _ChatScreensState extends State<ChatScreens> {
       body: Column(
         children: [
           Expanded(
+            flex: 1,
+            child: Image.asset(
+              "assets/chat.gif",
+              // width: 250,
+              // height: 300,
+            ),
+          ),
+          Expanded(
+            flex: 2,
             child: ListView.builder(
               padding: const EdgeInsets.all(8.0),
               itemCount: _messages.length,

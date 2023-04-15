@@ -10,19 +10,20 @@ SizedBox loadingWidget(double myHeight, double myWidth) {
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'BULL CRYPTO',
-            style: TextStyle(
-                fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
+          // const Text(
+          //   'BULL CRYPTO',
+          //   style: TextStyle(
+          //       fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold),
+          // ),
           const Spacer(
             flex: 1,
           ),
-          Image.network(
-            "https://media.tenor.com/Qzr6WpBLiEAAAAAi/technology-tech.gif",
+          Image.asset(
+            "assets/bgBulltech.png",
             width: 280,
             height: 280,
             fit: BoxFit.contain,
+            color: const Color.fromARGB(255, 0, 0, 0),
           ),
           const Spacer(
             flex: 3,
@@ -46,11 +47,6 @@ SizedBox loadingWidget(double myHeight, double myWidth) {
               SizedBox(
                 height: myHeight * 0.005,
               ),
-              // Image.asset(
-              //   'assets/circle-loading-spin.gif',
-              //   height: myHeight * 0.015,
-              //   color: Colors.black,
-              // ),
             ],
           ),
         ],

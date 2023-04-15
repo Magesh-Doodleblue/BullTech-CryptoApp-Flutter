@@ -1,9 +1,9 @@
+import 'package:bulltech/presentation/screens/authentication/new_signup_screen.dart';
 import 'package:bulltech/presentation/screens/navigation/navigation_screen_home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'presentation/screens/authentication/signup_screen.dart';
 import 'presentation/screens/navigation/homepage_screen.dart';
 import 'presentation/screens/splash_screen/opening_loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/navigationbutton": (context) => const NavigationButton(),
-        "/signup": (context) => const SignupScreen(),
+        "/signup": (context) => const NewSignupScreen(),
         "/homepage": (context) => const HomePage(),
       },
       home: Scaffold(

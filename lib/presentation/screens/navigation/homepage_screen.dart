@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
         showShadow: true,
         angle: 0,
         // change this to achieve the changing angle of homepage while opening the menu drawer.
-        menuBackgroundColor: const Color.fromARGB(255, 185, 185, 185),
+        menuBackgroundColor: const Color.fromARGB(255, 255, 158, 158),
         // style: DrawerStyle.style2,
         //change this to achieve diff styles like "style1 , style2 .. 4"
         slideWidth: MediaQuery.of(context).size.width * 0.65,
@@ -157,38 +157,38 @@ class _HomePageState extends State<HomePage> {
             )
           : Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    // height: 170,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      ),
-                      color: Color.fromARGB(255, 255, 119, 119),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Welcome to",
-                            //$name",
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(18.0),
+                //   child: Container(
+                //     width: MediaQuery.of(context).size.width,
+                //     // height: 170,
+                //     decoration: const BoxDecoration(
+                //       borderRadius: BorderRadius.all(
+                //         Radius.circular(30),
+                //       ),
+                //       color: Color.fromARGB(255, 255, 119, 119),
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(18.0),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: const [
+                //           Text(
+                //             "Welcome to",
+                //             //$name",
+                //             style: TextStyle(
+                //               fontSize: 22,
+                //               color: Colors.white,
+                //               fontWeight: FontWeight.w700,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 const Padding(
                   padding: EdgeInsets.only(left: 18.0),

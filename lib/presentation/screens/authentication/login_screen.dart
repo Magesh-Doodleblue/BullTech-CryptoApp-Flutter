@@ -1,12 +1,12 @@
 // ignore_for_file: unrelated_type_equality_checks, use_build_context_synchronously
 
-import 'package:bulltech/presentation/screens/authentication/new_signup_screen.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../domain/authentication/login_authentication.dart';
+import 'signup_screen.dart';
 
 class LoginScreenPage extends StatefulWidget {
   const LoginScreenPage({Key? key}) : super(key: key);
@@ -193,7 +193,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const NewSignupScreen(),
+                                builder: (context) => const SignupScreen(),
                               ),
                             );
                           },

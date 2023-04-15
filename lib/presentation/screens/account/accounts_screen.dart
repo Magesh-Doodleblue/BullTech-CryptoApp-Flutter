@@ -3,11 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/my_profile_widget.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
   State<AccountPage> createState() => _AccountPageState();
@@ -37,48 +38,76 @@ class _AccountPageState extends State<AccountPage> {
     });
   }
 
+  Future<bool> _onWillPop() async {
+    bool closeApp = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit the App?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+    if (closeApp == true) {
+      SystemNavigator.pop();
+    }
+
+    return closeApp;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Edit Profile',
-          style: TextStyle(
-            color: Color.fromARGB(255, 255, 119, 119),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Edit Profile',
+            style: TextStyle(
+              color: Color.fromARGB(255, 255, 119, 119),
+            ),
           ),
+          automaticallyImplyLeading: false,
         ),
-        automaticallyImplyLeading: false,
-      ),
-      body: StreamBuilder<DocumentSnapshot>(
-        stream: collectionReference.doc('UserSignInDetails').snapshots(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("Loading..."),
-                SizedBox(
-                  height: 10,
-                ),
-                CircularProgressIndicator(),
-              ],
-            );
-          }
+        body: StreamBuilder<DocumentSnapshot>(
+          stream: collectionReference.doc('UserSignInDetails').snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text("Loading..."),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CircularProgressIndicator(),
+                ],
+              );
+            }
 
-          userEmail = snapshot.data!.get('User_Email');
-          userName = snapshot.data!.get('User_Name');
-          userPhone = snapshot.data!.get('user_phone');
+            userEmail = snapshot.data!.get('User_Email');
+            userName = snapshot.data!.get('User_Name');
+            userPhone = snapshot.data!.get('user_phone');
 
-          return myProfileWidget(
-              profilePicLink: profilePicLink,
-              userName: userName,
-              userEmail: userEmail,
-              userPhone: userPhone);
-        },
+            return myProfileWidget(
+                profilePicLink: profilePicLink,
+                userName: userName,
+                userEmail: userEmail,
+                userPhone: userPhone);
+          },
+        ),
       ),
     );
   }
